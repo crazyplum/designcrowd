@@ -1,0 +1,85 @@
+.lang {border:0px; margin:1px; vertical-align:middle}
+.langOver {cursor:pointer; border:1px solid #f00; vertical-align:middle}
+.langCurr {border:1px solid #000; vertical-align:middle}
+
+.loading {position:absolute; z-index:99; font-weight:bold; top:5px; display:none; font-size:12px; color:#fff; background:#f00; padding:1px 5px 0px 5px;}
+.modal {position:absolute; left:0px; top:0px; width:100%; height:100%; background:#000; opacity:0.2; filter:alpha(opacity=20); -moz-opacity:0.2; z-index:97;}
+.slideMenu
+{
+    visibility:hidden;
+    border:1px solid #555; background: #ffc;
+    overflow-y:auto; overflow-x:hidden;
+    line-height: 20px;
+    table-layout:fixed; text-overflow:ellipsis; overflow:hidden; white-space: nowrap; width:220px; 
+    padding:3px 5px 3px 5px;
+    position:absolute; left:0px; top:0px;
+    cursor: default;
+    filter:revealTrans(DURATION=0.2, TRANSITION=1) alpha(opacity=100);
+}
+.slideMenuItemOut { background:#ffc;}
+.slideMenuItemOver { background:#00f; color:#fff; }
+
+
+.toolMenu
+{
+    visibility:hidden;
+    border:1px solid #555; background: #ffc;
+    overflow-y:auto; overflow-x:hidden;
+    line-height: 20px;
+    table-layout:fixed; text-overflow:ellipsis; overflow:hidden; white-space: nowrap; width:100px; 
+    padding:3px 5px 3px 5px;
+    position:absolute; left:0px; top:0px; z-index:99;
+    cursor: default;
+    text-align:left;
+    filter:revealTrans(DURATION=0.2, TRANSITION=1) alpha(opacity=100);
+    color:#333
+}
+.toolMenuSeparator {background:url(/sys/res/icon/separator.gif); font-size:0px; line-height:3px; padding:2px 0px 2px 0px;}
+.toolMenuItemOut { background:#ffc;}
+.toolMenuItemOver { background:#00f; color:#fff; }
+
+/* popup window */
+.popup   {
+            position:absolute; 
+            z-index:99; 
+            background:#ffc; 
+            padding:4px 4px 4px 4px; 
+            visibility:hidden; 
+            border:1px solid #333; 
+            filter:revealTrans(DURATION=0.2, TRANSITION=1);
+            white-space:nowrap; 
+            overflow:hidden; 
+            text-overflow:ellipsis;
+        }
+.popup2  {position:absolute; z-index:99; background:#ffc; padding:0px 0px 0px 0px; visibility:hidden; border:1px solid #333; filter:revealTrans(DURATION=0.2, TRANSITION=1);}
+.popuptitle {text-align:left; font-weight:bold; height:20px; font-size:14px; color:#000; overflow:hidden;}
+.popupbody {padding:4px 4px 4px 4px; background:#fff; text-align:left; border:1px solid #aaa}
+.popupMask {position:absolute; z-index:98; background:#ffc; visibility:hidden; border:0px; filter:revealTrans(DURATION=0.2, TRANSITION=1);}
+
+.clear {clear:both}
+.hidden	, div.hidden   { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lineBreak , div.lineBreak { white-space:normal; word-wrap:break-word; overflow:hidden }
+.vmiddle {vertical-align: middle;}
+
+/* calendar */
+.calTable     {width:100%; text-align:center; padding:0px 0px 0px 0px; letter-spacing:0px; line-height:20px}
+.calTitleTr {background-color:#C7D8FA}
+.calTitlePrevTd     {padding-left:6px; text-align:left;  width:14%}
+.calTitleMonthTd   {width:70%; font-weight:blod; color:#000;}
+.calTitleNextTd     {padding-right:6px; text-align:right; width:14%}
+.calDayTr    {background-color:#ECF1F7}
+.calDayTd    {padding:2px 0px 0px 2px; border-left:0px; border-right:0px; border-top:0px}
+.calTr       {background-color:#FFF;}
+.calTd       {padding:0px 3px 0px 0px; cursor:pointer; text-align:right; color:#000; font-weight:bold}
+.calOddTd    {padding:0px 3px 0px 0px; cursor:pointer; text-align:right; color:#AAA; font-weight:normal}
+.calTodayTd  {padding:0px 3px 0px 0px; cursor:pointer; text-align:right; color:#000; background-color:#D0E6F6; font-weight:bold}
+.calTdOver   {padding:0px 3px 0px 0px; cursor:pointer; text-align:right; color:#000; background-color:#ff6; font-weight:bold}
+
+/* combo */
+.combo    {cursor:pointer; background-color:#FFF; text-align:center}
+.comboCurr{background-color:#DDF;}
+.comboOut {background-color:#FFF;}
+.comboOver{background-color:#EEF;}
+
+/* textarea */
+.txtarea {  border:0px; font-size:12px; width: 98%; resize: none }

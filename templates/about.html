@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block css %}
+p{
+  width:75%;
+}
+{% endblock %}
+{% block js %} {% endblock %}
+{% block content %} 
+  <div id = "article"> 
+    <h3>Social Computing</h3>
+    <p>
+        Social computing is a general term for an area of computer science that is concerned with the intersection of social behavior and computational systems. It has become an important concept for use in business. It is used in two ways as detailed below.
+    </p>
+    <p>
+        In the weaker sense of the term, social computing has to do with supporting any sort of social behavior in or through computational systems. It is based on creating or recreating social conventions and social contexts through the use of software and technology. Thus, blogs, email, instant messaging, social network services, wikis, social bookmarking and other instances of what is often called social software illustrate ideas from social computing, but also other kinds of software applications where people interact socially.
+    </p>
+    <p>
+
+        In the stronger sense of the term, social computing has to do with supporting 「computations」 that are carried out by groups of people, an idea that has been popularized in James Surowiecki's book, The Wisdom of Crowds. Examples of social computing in this sense include collaborative filtering, online auctions, prediction markets, reputation systems, computational social choice, tagging, and verification games. The Social Information Processing page focuses on this sense of social computing.
+    </p>
+    <p>
+        Social computing has become more widely known because of its relationship to a number of recent trends. These include the growing popularity of social software and Web 2.0, increased academic interest in social network analysis, the rise of open source as a viable method of production, and a growing conviction that all of this can have a profound impact on daily life. A February 13, 2006 paper by market research company Forrester Research suggested that: "Easy connections brought about by cheap devices, modular content, and shared computing resources are having a profound impact on our global economy and social structure. Individuals increasingly take cues from one another rather than from institutional sources like corporations, media outlets, religions, and political bodies. To thrive in an era of Social Computing, companies must abandon top-down management and communication tactics, weave communities into their products and services, use employees and partners as marketers, and become part of a living fabric of brand loyalists.""
+
+    </p>
+
+  </div>
+  
+  <div style="margin-bottom: 10px">
+  <div class="fb-like" data-href="http://localhost:5000/about" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"></div>
+  </div>
+  <div class="fb-comments" data-href="http://localhost:5000/about" data-width="470" data-num-posts="10"></div>
+
+
+{% endblock %}

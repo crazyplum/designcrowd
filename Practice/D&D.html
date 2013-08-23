@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>NTHU Online Judge: Index</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content"">
+
+	<!-- Le styles -->
+	<link href="./css/bootstrap.css" rel="stylesheet">
+	<style type="text/css">
+		body {
+			padding-top: 60px;
+			padding-bottom: 40px;
+		}
+	</style>
+	<link href="./css/bootstrap-responsive.css" rel="stylesheet">
+
+
+	
+  	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  	<style>
+  		/*#draggable { width: 150px; height: 150px; padding: 0.5em; }*/
+  		/*.span3 { cursor: move };*/
+  	</style>
+  	
+</head>
+  
+<body>
+	<script src="./js/jquery-1.9.1.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/jquery-ui-1.10.3.custom.js"></script>
+
+
+    <script>
+    	$( document ).ready(function() {
+
+  
+    		$( "#button" ).click(function() {
+    			alert("CLICK BUTTON !!");
+      			$( ".container div").addClass("dragme");
+      			$( ".container div").addClass("resizeme");
+      			setdrag();
+      			setresize();
+    		});
+
+    		$( "#button2" ).click(function() {
+    			alert("CLICK BUTTON 2 !!");
+      			$( ".container div").removeClass("dragme");
+      			$( ".container div").removeClass("resizeme");
+    		});
+
+  			function setdrag() {
+  				$( ".dragme" ).draggable( { handle :"h3", cursor:"move" });
+  			};	
+
+  			function setresize() {
+  				$( ".resizeme" ).resizable();
+  			};	
+
+  			/*$(function() {
+  				$( ".span3:first" ).draggable({ containment: "parent" , delay: 1000 });
+  			});	*/
+
+		});
+    </script>
+
+
+
+
+
+
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+
+				<a class="brand" href="./index.php"><img src="./pic/TitlebarLogo2.png" width="150"></a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Contest<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="./contest_archive.php">Archive</a></li>
+								<li><a href="./contest.php">Problem Set</a></li>
+								<li><a href="./scoreboard.php">Scoreboard</a></li>
+								<!-- <li><a href="./new_scoreboard.php">Scoreboard V2</a></li> -->
+							</ul>
+						</li>
+
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Volume<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="./volume.php?vol=1">Volume 1</a></li>
+								<li><a href="./volume.php?vol=2">Volume 2</a></li>
+								<li><a href="./volume.php?vol=3">Volume 3</a></li>
+								<li><a href="./volume.php?vol=4">Volume 4</a></li>
+								<li><a href="./volume.php?vol=5">Volume 5</a></li>
+								<li><a href="./volume.php?vol=6">Volume 6</a></li>
+								<li><a href="./volume.php?vol=7">Volume 7</a></li>
+								<li><a href="./volume.php?vol=8">Volume 8</a></li>
+								<!-- <li><a href="./volume.php?vol=9">Volume 9</a></li>-->
+							</ul>
+						</li>
+						
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">CPE<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="./contest.php?cid=71">Sample Problems</a></li>
+								<li class="dropdown-submenu">
+									<a tabindex="-1" href="#">101學年度</a>
+									<ul class="dropdown-menu">
+										<li><a href="./contest.php?cid=148">上學期第一次</a></li>
+										<li><a href="./contest.php?cid=149">上學期第二次</a></li>
+										<li><a href="./contest.php?cid=150">上學期第三次</a></li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu">
+									<a tabindex="-1" href="#">100學年度</a>
+									<ul class="dropdown-menu">
+										<li><a href="./contest.php?cid=86">上學期第一次</a></li>
+										<li><a href="./contest.php?cid=103">上學期第二次</a></li>
+										<li><a href="./contest.php?cid=107">上學期第三次</a></li>
+										<li><a href="./contest.php?cid=112">下學期第一次</a></li>
+										<li><a href="./contest.php?cid=117">下學期第二次</a></li>
+										<li><a href="./contest.php?cid=123">下學期第三次</a></li>
+									</ul>
+								</li>
+								<!--<li><a href="#">Contest</a></li>-->
+							</ul>
+						</li>
+						
+						
+						<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Course<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="./course_info.php">課程資訊</a></li>
+								<li><a href="./faq.php">都市傳說</a></li>
+								<li><a href="./basic_class.php">基礎班課綱</a></li>
+								<li><a href="./contest.php?cid=159">基礎班題目</a></li>
+								<li><a href="./basic_classHW.php">基礎班解題情形</a></li>
+								<li><a href="./contest.php?cid=160">TPC 2013 Spring</a></li>
+								<!--li><a href="#">中階班解題情形</a></li-->
+							</ul>
+						</li>
+
+
+						<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="http://www.codeblocks.org/">Codeblocks</a></li>
+								<li><a href="http://notepad-plus-plus.org/">Notepad++</a></li>
+								<li><a href="http://www.mingw.org/">MinGW</a></li>
+							</ul>
+						</li>
+
+          
+						<li><a href="./submit.php">Submit</a></li>
+						
+						<li><a href="./status.php">Status</a></li>
+						
+						<li><a href="./user_rank.php">User Rank</a></li>
+						
+						<!--<li class="active"><a href="https://docs.google.com/spreadsheet/viewform?formkey=dDFXczRTbFhiRXRmeG54QUlKMi1BWlE6MQ">Bug Report</a></li>-->
+
+						<!--<li><a href="#contact">Contact</a></li>-->
+					</ul>
+
+					<button type="submit" class="btn pull-right" onClick="window.location='./register.php'">Register</button>
+					<form class="navbar-form pull-right" method="post" action="./login.php">
+						<input class="span1" type="text" name="txtUserId" placeholder="Account">
+						<input class="span1" type="password" name="txtPassword" placeholder="Passwd">
+						<button type="submit" class="btn" name="btnLogin">Sign in</button>&nbsp;
+					</form>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+	
+	
+    <div class="container">
+	<!-- Main hero unit for a primary marketing message or call to action -->
+            
+		<!--<div class="hero-unit">-->
+		<div class="carousel slide" id="myCarousel">
+			<div class="carousel-inner">
+				<div class="active item">
+					<div class="hero-unit">
+						<img src="./pic/TitlebarLogo.png" width="500">
+						<table class="table">
+							<tr>
+								<!--<td rowspan=2><img src="./pic/logl2.png"></td>-->
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								<td>
+									<!--h2>NTHU Online Judge</h2>-->
+									<p>This is National Tsing Hua University Online Judge, an ACM-like online judge designed for training purposes and a platform of contest. You may utilize this site by the links on the side bar and top-right corner. Each of them will redirect you to a page with the following functions.</p>
+									<p>
+										<a class="btn btn-primary btn-large" href="./register.php">Register &raquo;</a>
+										<a class="btn btn-primary btn-large" href="./login.php">Login &raquo;</a>
+									</p>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+            
+				<div class="item">
+					<div class="hero-unit">
+						<h2>New Function: Clarification</h2>
+						<hr>
+						<p>&nbsp;If contest is running, you can submit clarification to judge in contest area. See below picture: <br>
+							<img src="http://i.imgur.com/w5ncRkX.png">
+						</p>
+					</div>
+				</div>
+      
+				<div class="item">
+					<div class="hero-unit">
+						<h2>New User Interface, New Feeling!!</h2>
+						<hr>
+						<p>&nbsp;Hope every user likes it!</p>
+						<br><br><br><br><br>
+					</div>
+				</div>
+			</div>
+			
+			<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+			<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+		</div>
+		<!--</div>-->
+
+		<div class="row">
+			<div class="span3">
+				<h3>Top-Right Links</h3>
+				<dl>
+					<dt>Register</dt>
+					<dd><p>You can register for an account on this page. Currently a secret key is needed for registeration.</p></dd>
+					<dt>Login</dt>
+					<dd><p>You may login your account for submissions of your program.</p></dd>
+					<dt>Profilie</dt>
+					<dd><p>This will be shown only if you login, you can edit your personal information here.</p></dd>
+				</dl>
+			</div>
+
+			<div class="span3">
+				<h3>Site Index</h3>
+				<dl>
+					<dt>Submit</dt>
+					<dd><p>After finishing your program, you can submit it for judge through this page. You need to fill in problem ID and language you used, then you can submit your code by either posting it or uploading the file.</p</dd>
+					<dt>Status</dt>
+					<dd><p>All the verdicts will be shown here. The status, CPU time as well as memory usage will be reported for every submission, except thos ought not to be showned during the very end of the contest, when the scoreboard is freezed.</p></dd>
+					<dt>Problem Archive</dt>
+					<dd><p>Here you can find the problems of this site that you can try to solve.</p></dd>
+				</dl>
+			</div>
+
+			<div class="span3">
+				<h3>Contest</h3>
+				<dl>
+					<dt>Problem Set</dt>
+					<dd><p>You can browse the problems of the currently running contest, if any.</p></dd>
+					<dt>Scoreboard</dt>
+					<dd><p>Here you can see the ranklist and status of participants of the currently running contest.</p></dd>
+					<dt>Archive</dt>
+					<dd><p>Here you can see all scheduled contests including the past and upcoming ones.</p></dd>
+				</dl>
+			</div>
+
+			<div class="span3">
+				<h3>Admin</h3>
+				<p>If you are an admin, after login, you will see an additional section.</p>
+				<dl>
+					<dt>Contest Panel</dt>
+					<dd><p>Here you can schedule for a contest as well as modify the information and problem sets for the contest, e.g. when should the scoreboard freeze before the end of contest.</p></dd>
+					<dt>Problem Panel</dt>
+					<dd><p>Here you can create a new problem or edit an existing problem, editor embedded is Fckeditor.</p></dd>
+				</dl>
+				<p>Note that aside from these additional functions, the admins are allowed to see all the status of the submission and scoreboard during it is freezed. Besides, the problems that is not added to Problem Archive will not be shown and cannot be submitted for non-admin accounts.</p>
+			</div>
+		</div>
+
+		
+		<a href="#" id="button" class="ui-state-default ui-corner-all">Run Effect</a><br>
+		<a href="#" id="button2" class="ui-state-default ui-corner-all">End Effect</a><br>
+
+		
+		
+		<a href="#top">Top ^</a>
+		<hr>
+		<footer>
+			<p>&copy; NTHU Online Judge 2013, <br>
+				Templates are from Bootstrap Project
+			</p>
+		</footer>
+		
+    </div> <!-- /container -->
+  </body>
+</html>

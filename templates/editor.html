@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>Homepage</title>
+		<!--
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/redmond/jquery-ui.css" /> -->
+		<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    	<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    	<style>
+
+    	.btn-group {
+    		left:25px;
+    		top:200px;
+			position:fixed;
+    	}
+
+    	.nav {
+    		font-size: 17px;
+    	}
+
+    	#wp_iframe{
+    		margin-left: 10px;
+    	}
+
+    	body { 
+			background-image:url('/static/images/body-pattern.gif');
+			background-repeat: repeat;
+			background-position: 0 0;
+			background-attachment: fixed;
+		}
+    	</style>
+</head>
+<body>
+	<div id="fb-root"></div>
+	<!--
+	<script>
+		// Load the SDK asynchronously
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		
+		window.fbAsyncInit = function() {
+			// init the FB JS SDK
+			FB.init({
+				appId      : '179519402197498',                      // App ID from the app dashboard
+				channelUrl : '', 									 // Channel file for x-domain comms
+				status     : true,                                   // Check Facebook Login status
+				xfbml      : true,                                   // Look for social plugins on the page
+				cookie	   : true
+			});
+		
+			// Additional initialization code such as adding Event Listeners goes here
+			FB.getLoginStatus(function(response) {
+				if (response.status === 'connected') {
+					alert('connected');
+					var access_token = response.authResponse.accessToken;
+					console.log(access_token);
+					//login();
+					FB.api('/me', function(response) {
+  						console.log(response);
+  						//$('#profile_picture').attr('src', 'https://graph.facebook.com/'+response.id+'/picture');
+  						//$('#profile_picture').attr('width', '22')
+  						//$('.icon-user').removeAttr('class');
+  						$('#method').html('<img id="profile_picture" src="https://graph.facebook.com/'+response.id+'/picture" width="24"/> Log out' );
+  						$('#method').attr('onclick', 'logout();');
+  						//$('#profile_picture').attr('alt', response.name)
+  						//https://graph.facebook.com/<user-id-or-username>/picture
+					});
+				} else if (response.status === 'not_authorized') {
+					alert('not_authorized, plz relogin');
+					//login();
+				} else {
+					alert('not login, plz login');
+					//login();
+				}
+			});
+		};	
+	</script>-->
+	<br>
+
+	<!-- NAVBAR
+	================================================== -->
+	<div class="navbar-wrapper">
+		<!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+		<div class="container">
+			<div class="navbar navbar-inverse">
+				<div class="navbar-inner">
+					<!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="#"><img src="/static/images/logo3.png" width="130" height="20"/></a>
+					<!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+					<div class="nav-collapse collapse">
+						<ul class="nav">
+							<li><a href="#">Home</a></li>
+							<li><a href="#about">About</a></li>
+							<li><a href="#contact">Contact</a></li>
+            				<!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
+							<li class="dropdown active">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Templates <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="http://127.0.0.1:5000/editor">Themeforest</a></li>
+									<li><a href="#">Another action</a></li>
+									<li><a href="#">Something else here</a></li>
+									<li class="divider"></li>
+									<li class="nav-header">Nav header</li>
+									<li><a href="#">Separated link</a></li>
+									<li><a href="#">One more separated link</a></li>
+								</ul>
+							</li>
+						</ul>
+						<ul class="nav pull-right">
+							<li><a id='method'></a></li>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div><!-- /.navbar-inner -->
+			</div><!-- /.navbar -->
+		</div> <!-- /.container -->
+	</div><!-- /.navbar-wrapper -->
+
+	<div class="btn-group btn-group-vertical">
+  		<div id="dragify-btn" class="btn btn-info">D</div>
+  		<div id="resizify-btn" class="btn btn-info">R</div>
+  		<div id="color-btn" class="btn btn-info">C</div>
+  		<div id="save-btn" class="btn btn-info">S</div>
+	</div>
+
+	<div class="container">
+    	<!--<iframe id="wp_iframe" src="/proxy/www.deluxetemplates.net/2013/03/matrixone-blogger-template.html" frameborder="0"></iframe>-->
+    	<iframe id="wp_iframe" src="/deluxe_templates" frameborder="0"></iframe>
+	</div>
+
+	<!-- Le javascript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap.js"></script>
+	<script>
+	$('#wp_iframe').attr('width', $('.navbar').width() - 20 );
+	$('#wp_iframe').attr('height', $(window).height() - 25);
+	//$('#wp_iframe').attr('height', 2000);
+
+	$('#wp_iframe').load(function () {  
+
+	    var contents = $('iframe').contents(),
+	    body = contents.find('body');
+	    head = contents.find('head');
+
+	    $('#dragify-btn').click(function(){
+
+	    	var jq = document.createElement("script");
+			//script.type  = "text/javascript";
+			jq.src = '/static/js/jquery-1.9.1.js';
+			head.append( jq );
+
+			var ui = document.createElement("script");
+			//script.type  = "text/javascript";
+			ui.src = '/static/js/jquery-ui.js';
+			head.append( ui );
+			/*
+			var ui_widget = document.createElement("script");
+			//script.type  = "text/javascript";
+			ui.src = '/static/js/jquery.ui.widget.js';
+			head.append( ui_widget );
+
+			var ui_mouse = document.createElement("script");
+			//script.type  = "text/javascript";
+			ui.src = '/static/js/jquery.ui.mouse.js';
+			head.append( ui_mouse );
+
+			var ui_drag = document.createElement("script");
+			//script.type  = "text/javascript";
+			ui.src = '/static/js/jquery.ui.draggable.js';
+			head.append( ui_drag );
+			*/
+			
+
+			/*
+			var my = document.createElement("script");
+			my.src = '/static/js/my.js'
+			head.append( my );
+			*/
+			
+	    	var script = document.createElement("script");
+			//script.type  = "text/javascript";
+			//script.src   = 'path/to/your/javascript.js';    
+			script.text = '(function() {'
+								+'$(".title", frames["wp_iframe"].document).addClass("dragme");'
+								+'$(".dragme", frames["wp_iframe"].document ).draggable( { cursor:"move" });'
+								
+								+'alert("yo");'
+							+'})();';
+
+
+			body.append( script );
+			
+			
+			//$('iframe')[0].contentWindow.Dragify();
+
+			//$('iframe')[0].contentWindow.Alert();
+
+	        console.log('button pressed');
+
+	        console.log($('iframe').contents());
+	    });
+
+	    $('#resizify-btn').click(function(){
+	        console.log('button2 pressed');
+	        console.log($('iframe').contents());
+	    });
+
+	    $('textarea').keyup(function() {
+	        var $this = $(this);
+	        if ( $this.attr('id') === 'html') {
+	            body.html( $this.val() );
+	        } else {
+	            // it had to be css
+	            styleTag.text( $this.val() );
+	        }
+	    });
+
+	    //alert($('.navbar').width())
+	});
+
+	$(window).resize(function() {
+		$('#wp_iframe').attr('width', $('.navbar').width() - 20 );
+		$('#wp_iframe').attr('height', $(window).height() - 25);
+	});
+
+	</script>
+</body>
+</html>

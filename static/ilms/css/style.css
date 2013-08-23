@@ -1,0 +1,329 @@
+body 
+{
+    margin: 0px auto; 	
+    line-height:1.5; 
+    font-size:12px;
+    color:#666;	
+    font-family:Arial, sans-serif;
+}
+
+select  {font-size:10.5px}
+table   {font-size:12px; color:#555; border-collapse:collapse}
+
+a          {color:#44f; text-decoration:none;}
+a:link     {color:#44f; text-decoration:none;}
+a:visited  {color:#44f; text-decoration:none;}
+a:hover    {text-decoration:underline; color:#f00;}
+
+.ul        {list-style:none; margin:0; padding:0; display:inline} 
+.hr        {border-top:1px dashed #ddd; margin-top:5px; margin-bottom:3px}
+.clear     {clear:both}
+.clearLine {clear:both; border-top:1px dotted #ccc}
+.em        {font-weight:bold; color:#000}
+.em2       {color:#000}
+.lt        {font-weight:normal; color:#aaa}
+.hint      {font-weight:normal; color:#999; font-size:10.5px}
+.emfont    {color:#333}
+.redfont   {color:red}
+.smallfont {font-size:10px; color:gray; font-weight:normal}
+.hide      {display:none}
+.small     {font-size:10.5px}
+.bold      {font-weight:bold}
+.light     {color:#999}
+.function {padding-left:14px; background:url(http://lms.nthu.edu.tw/sys/res/icon/check.gif) no-repeat 0px 1px;}
+
+#base            {width:930px; margin:0px auto}
+    #sysbar      {float:right; text-align:left; padding-top:5px; padding-bottom:5px}
+        #login   {text-align:right; font-size:12px; padding-top:10px}
+        #search  {text-align:right}
+    #mainbody    {text-align:left; padding:10px 0px 10px 0px}
+        #banner     {width:930px; height:265px; padding:0;margin-bottom:10px; border-bottom:7px solid #FFAA66;background:url(http://lms.nthu.edu.tw/blog/webhd_read_file.php?id=3807&verifyCode=65e63135ec406bd8e5057d84e6092c90); no-repeat;}
+            #logo   {cursor:pointer; border:0px;}
+        #content    {padding-top:20px;}
+            #menu   {float:right; width:300px; padding-left:1px; overflow:hidden}
+            #main   {float:left; width:600px; overflow:hidden;}
+    #copyright   {border-top:5px solid #FFAA66; padding:10px 0px; text-align:center}
+
+
+#menu .box     {margin-bottom:40px;width:100%; background:transparent url(http://lms.nthu.edu.tw/sys/res/index_themes/1/images/box_body.gif) repeat-y;}
+#menu .box2    {background:transparent url(http://lms.nthu.edu.tw/sys/res/index_themes/1/images/box_top.gif) no-repeat top;}
+#menu .box3    {padding:10px 5px; background:transparent url(http://lms.nthu.edu.tw/sys/res/index_themes/1/images/box_bottom.gif) no-repeat bottom;}
+
+#menu .boxHeader    {font-weight:bold; color:#000; font-size:14px; padding-left:4px}
+#menu .boxBody      {padding-left:4px}
+#menu .boxFooter    {}
+#menu .boxItem      {padding-left:15px; background:transparent url(http://lms.nthu.edu.tw/sys/res/index_themes/1/images/nav_arrow.gif) no-repeat scroll 0 2px;}/*overflow:hidden; white-space:nowrap; text-overflow:ellipsis*/
+#menu .boxImage     {padding:2px 5px;}
+#menu .boxSwf       {padding:0px 5px}
+
+.textArea  .boxBody {padding-left:4px}
+.freeSpace .boxBody {padding-left:4px}
+
+.more {text-align:right}
+
+/* main@index.php */
+#main .box          {padding-bottom:30px; width:100%; overflow:hidden}
+#main .boxHeader    {font-weight:bold; color:#000; font-size:14px; border-bottom:3px solid #fc8;}
+#main .boxBody      {}
+#main .boxFooter    {}
+
+/*ctable*/
+.tableBox           {margin-bottom:5px; padding:1px 0px; border-top:1px solid #fc8; border-bottom:1px solid #fc8}
+.table              {width:100%; border-collapse:collapse; table-layout:fixed}
+.table  .td         {border-top:1px solid #fff; border-left:1px solid #fff; padding-left:2px}
+.table  .header     {font-size:10.5px; background:#ddd}
+.table  .row        {height:22px; background:#fff}
+.table  .row2       {height:22px; background:#ffd}
+.table  .rowOver    {height:22px; background:#ffa}
+.table  .selected   {height:22px; background:#fcc}
+.table  .thread     {border:1px solid #aaa; padding-bottom:15px; margin-bottom:10px; display:none; text-align:left}
+
+/*ctab*/
+.tabBox         {}
+.tabHeader      {border-bottom:3px solid #fc8; line-height:1.3; width:100%; margin-bottom:10px;}
+.tabBox .title  {font-size:14px; float:left; font-weight:bold; color:#000}
+.tabBox .tool   {font-weight:normal; font-size:10.5px}
+.tabBox .curr   {color:#f60}
+
+.tabBox .tab           {float:right; padding-top:2px; *padding-top:1px; color:#000}
+.tabBox .tab .item     {float:left; cursor:pointer; margin-left:5px; padding:1px 5px 0px; *padding-top:3px; border:1px solid #fa6; border-bottom:0;}
+.tabBox .tab .curr     {float:left; cursor:pointer; margin-left:5px; padding:1px 5px 0px; *padding-top:3px; border:1px solid #fa6; border-bottom:0;}
+.tabBox .tab div:hover {color:#f60}
+
+/*navigate*/
+#naviBox .boxBody {padding-left:4px}
+#navi             {font-size:13px;}
+#navi ul          {margin:0; padding:0}
+#navi li          {list-style:none; text-decoration:none}
+#navi li:hover    {list-style:none; text-decoration:none}
+/*navigate sub*/
+#navi li ul           {display:none; padding-left:26px;}
+#navi li ul li        {border-bottom:0px; list-style:none; text-decoration:none}
+#navi li ul li:hover  {border-bottom:0px; list-style:none; text-decoration:none}	
+
+/*lms's navi menu icon*/
+.navi_home        {background:url(/sys/res/icon/cal_home.gif) no-repeat}
+.navi_doc         {background:url(/sys/res/icon/cal_doc.gif) no-repeat}
+.navi_bulletin    {background:url(/sys/res/icon/rss1.gif) no-repeat}
+.navi_forum       {background:url(/sys/res/icon/discuss.gif) no-repeat}
+.navi_link        {background:url(/sys/res/icon/cal_link2.gif) no-repeat}
+.navi_folder      {background:url(/sys/res/icon/cal_folder.gif) no-repeat}
+.navi_calendar    {background:url(/sys/res/icon/cal_calendar.gif) no-repeat}
+.navi_statistic   {background:url(/sys/res/icon/cal_poll.gif) no-repeat}
+.navi_div         {background:url(/sys/res/icon/cal_homework.gif) no-repeat}
+.navi_course_hot  {background:url(/sys/res/icon/cal_announce.gif) no-repeat}
+.navi_course_open {background:url(/sys/res/icon/cal_activity.gif) no-repeat}
+
+.navi_home, .navi_doc, .navi_bulletin, .navi_forum, .navi_calendar, .navi_statistic, .navi_div, .navi_course_hot, .navi_course_open, .navi_link, .navi_folder {padding-left:15px}
+/*eportfolio's navi menu icon*/
+.navi_doc_new     {background:url(/sys/res/icon/cal_doc.gif) no-repeat}
+.navi_doc_hot     {background:url(/sys/res/icon/cal_doc_hot.gif) no-repeat}
+.navi_blog_elite  {background:url(/sys/res/icon/cal_blog_elite.gif) no-repeat}
+.navi_blog_hot    {background:url(/sys/res/icon/cal_blog_hot.gif) no-repeat}
+.navi_teaDir      {background:url(/sys/res/icon/teacher.gif) no-repeat}
+.navi_stuDir      {background:url(/sys/res/icon/student.gif) no-repeat}
+
+.navi_doc_new, .navi_doc_hot, .navi_blog_elite, .navi_blog_hot, .navi_teaDir, .navi_stuDir {padding-left:15px}
+
+/*group's navi menu icon*/
+.navi_group_new   {background:url(/sys/res/icon/cal_group_new.gif) no-repeat}
+.navi_group_hot   {background:url(/sys/res/icon/cal_group_hot.gif) no-repeat}
+
+.navi_group_new, .navi_group_hot{padding-left:15px}
+
+/* eportfolio's page elite & hot */
+.bloglist      {float:left; width:186px; padding:10px 0px 10px 0px}
+.bloglistTitle {font-size:12px; padding:0px; width:100%; text-overflow:ellipsis; white-space:nowrap; overflow:hidden}
+.bloglistBody  {float:left}
+.bloglistNote  {font-size:10.5px; color:#444; padding:0px 2px 0px 0px; width:100%; text-overflow:ellipsis; white-space:nowrap; overflow:hidden}
+.bloglistInfo  {width:110px; font-size:10.5px; color:#999; line-height:16px; margin-left:70px}
+.bloglistPhoto {float:left}
+.blogimage     {width:60px; border:1px solid #ccc; padding:1px}
+.blogimageOver {width:60px; border:1px solid #f20; padding:1px}
+
+/* eportfolio homepage elite & hot */
+.blog            {}
+.blog .title	 {font-size:12px; margin-bottom:5px; width:100%; text-overflow:ellipsis; white-space:nowrap; overflow:hidden}
+.blog .doctitle	 {color:#444;}
+.blog .body      {padding-right:5px}
+.blog .note      {font-size:10.5px; color:#444; padding-right:2px; width:100%; text-overflow:ellipsis; white-space:nowrap; overflow:hidden}
+.blog .info      {float:left; font-size:10.5px; color:#999; line-height:16px; margin-left:6px}
+.blog .img       {float:left}
+.blog .line      {height:10px; margin-bottom:5px; border-bottom:1px dotted #ccc}
+.blog .content	 {float:right; line-height:16px; margin-left:10px; font-size:12px; width:430px}
+.blog .image	 {width:60px; border:1px solid #ccc; padding:1px}
+.blog .imageOver {width:60px; border:1px solid #f20; padding:1px}
+
+/* group's groupnews */
+.grouplist           {float:left; width:150px; padding:10px 0px 10px 0px}
+.grouplistTitle      {font-size:12px; padding:0px; width:140px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden}
+.grouplistBody       {float:left}
+.grouplistNote       {font-size:10.5px; color:#444; padding:0px 2px 0px 0px; width:100%; text-overflow:ellipsis; white-space:nowrap; overflow:hidden}
+.grouplistInfo       {width:75px; font-size:10.5px; color:#999; line-height:16px; margin-left:70px}
+.grouplistPhoto      {float:left}
+.grouplistImage      {width:60px; border:1px solid #ccc; padding:1px}
+.grouplistImageOver  {width:60px; border:1px solid #f20; padding:1px}
+
+/* group's groupall */
+.groupAll             {}
+.groupAll li          {float:left; margin-right:5px; padding-top:10px; list-style-image:none; list-style-position:outside; list-style-type:none}
+.groupAll li a        {color:#000; padding:1px 3px 1px 3px; text-decoration:none}
+.groupAll li a:hover  {color:#f60; padding:1px 3px 1px 3px; background:#ffc}
+.groupAll li.curr a   {color:#f60; padding:1px 3px 1px 3px; background:#fff; font-weight:bold}
+#groupAll .boxHeader  {font-size:13px; font-weight:normal}
+#groupAll .boxHeader .filter {font-size:12px; color:#666;}
+
+.full_grouplist             {float:left; width:290px; padding: 10px 10px 10px 0}
+#groupinc .full_grouplist   {float:left; width:300px; padding: 10px 10px 10px 0}
+.full_grouplistTitle        {font-size:12px; padding:0px; width:100%; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.full_grouplistBody         {float:left}
+.full_grouplistNote         {font-size:10.5px; color:#444; padding:0px 2px 0px 0px; width:100%; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.full_grouplistInfo         {width:200px; font-size:10.5px; color:#999; line-height:16px; margin-left:70px}
+.full_grouplistPhoto        {float:left}
+.full_grouplistOutline      {color:#333; font-size:12px; height:47px; overflow:hidden}
+.full_grouplistimage        {width:60px; border:1px solid #ccc; padding:1px }
+.full_grouplistimageOver    {width:60px; border:1px solid #f20; padding:1px }
+
+
+
+/* dir lms's & eportfolio's div */
+.dir           {float:left; width:49%; padding:5px 5px 15px 0px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden}
+.dir2          {float:left; width:49%; text-overflow:ellipsis; white-space:nowrap; overflow:hidden}
+.dirTitle      {font-weight:bold; background:#ff6; padding-top:1px}
+.lnk a         {color:#44f; text-decoration:underline}
+.lnk a:visited {color:#44f; text-decoration:underline}
+.lnk a:hover   {color:#f60 }
+
+#tab             {}
+#tab li          {float:left; margin-left:5px; padding-top:10px; list-style-image:none; list-style-position:outside; list-style-type:none}
+#tab li a        {color:#000; padding:1px 3px 1px 3px; text-decoration:none}
+#tab li a:hover  {color:#f60; padding:1px 3px 1px 3px; background:#ff }
+#tab li.curr a   {color:#f60; padding:1px 3px 1px 3px; background:#fff; font-weight:bold}
+
+#tab2             {}
+#tab2 li          {float:left; margin-right:5px; padding-top:10px; list-style-image:none; list-style-position:outside; list-style-type:none}
+#tab2 li a        {color:#000; padding:1px 3px 1px 3px; text-decoration:none}
+#tab2 li a:hover  {color:#f60; padding:1px 3px 1px 3px; background:#ffc}
+#tab2 li.curr a   {color:#f60; padding:1px 3px 1px 3px; background:#fff; font-weight:bold}
+
+/* bulletin news */
+.doc       {padding:0px 0px 20px 0px; background:url(/sys/res/icon/doc.gif) no-repeat 0px 2px}
+.subject   {font-size:14px; font-weight:bold; color:#000; padding:10px 0px 2px 5px; margin-left:48px}
+.poster    {float:left; font-size:10.5px; color:#ccc}
+.tools     {float:right; font-size:10.5px; color:#ccc; padding:1px 10px 0px 10px;}
+.article   {line-height:1.5; padding:3px 0px 0px 0px}
+.attach    {padding:15px 0px 5px 0px}
+.toolarea  {padding:2px 0px 2px 0px; margin-left:48px}
+.toolarea .tool   {float:right; padding:1px 2px 0px 0px}
+.doc .title       {color:#000000; font-size:14px; font-weight:bold; margin-left:48px; padding:10px 0px 2px 5px; border-bottom:1px dashed #DDDDDD;}
+.doc .article     {}
+.doc .attach      {padding:10px 0 5px 0px;}
+.doc .info              {padding-bottom:20px}
+.doc .toolarea          {font-size:11px; color:#999}
+.doc .toolarea a        {font-size:11px}
+.doc .toolarea a:hover  {font-size:11px}
+.doc .poster            {color:#808080; float:left; font-size:10.5px;}
+.doc .tool              {float:right}
+
+#tabHeader {border-bottom:3px solid #fc8}
+
+/* page navi 1*/
+#PageNav { font-size:10.5px }
+#PageNav .PageCurr             {margin-left:5px; padding-top:10px; color:#000; font-weight:bold; padding-left:4px; padding-right:4px }
+#PageNav .PageNavItem          {margin-left:5px; padding-top:10px; }
+#PageNav .PageNavItem  a       {color:#777; border:1px solid #ccc; padding:0px 3px 0px 3px; text-decoration:none }
+#PageNav .PageNavItem  a:hover {color:#000; border:1px solid #666; padding:0px 3px 0px 3px; background:#ffa; text-decoration:none }
+#PageCombo                     {font-family: Arial, Helvetica, sans-serif; font-size:10.5px; color:#777; border:1px solid #ccc; width:25px; height:15px; font-size:10px; text-align:center }
+
+/* page navi 2*/
+.pageBox    {text-align:center; border-top:1px solid #ccc; padding-top:5px}
+.page       {font-size:10.5px}
+.page .curr         {margin-left:5px; padding:10px 4px 0px 4px; color:#000; font-weight:bold}
+.page .item         {margin-left:5px; padding-top:10px}
+.page .item a       {color:#777; border:1px solid #ccc; padding:0px 3px 0px 3px; text-decoration:none}
+.page .item a:hover {color:#000; border:1px solid #666; padding:0px 3px 0px 3px; background:#ffa; text-decoration:none}
+.page .input        {font-weight:bold; color:#777; border:1px solid #ccc; width:30px; height:15px; font-size:10px; text-align:center}
+      .combo        {cursor:pointer; background-color:#fff; text-align:center; }
+      .combo .curr  {background-color:#ddd}
+      .combo .over  {background-color:#ff0}
+
+
+#currPos      {background:url(/sys/res/icon/next2.gif) no-repeat 0px 6px; *background:url(/sys/res/icon/next2.gif) no-repeat 0px 3px; padding:0px 0px 10px 10px; color:#aaa; font-size:10.5px;}
+#currPosTitle, .currPosTitle {font-size:15px; font-weight:bold; color:#000}
+
+.filter {padding-bottom:2px}
+.hidden	, div.hidden   { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+.uline          {border-bottom:1px dashed #ddd;}
+.blockTitle     {font-weight:bold; color:#000; font-size:14px; padding-top:10px;  border-bottom: 3px solid #fc8; }
+.blockTitleTab  {font-weight:bold; color:#000; font-size:14px; padding-top:10px;}
+.blockTitle2    {font-weight:bold; color:#444; font-size:12px; padding-top:10px }
+
+.btnBox  {padding:5px 0px 2px 0px; font-size:11.5px}
+.btn     {cursor:pointer; color:#444; padding:1px 5px 0px 5px; margin-right:4px; border:1px solid #88f; background:#eef}
+.btnOver {cursor:pointer; color:#000; padding:1px 5px 0px 5px; margin-right:4px; border:1px solid #66f; background:#aff}
+
+.postHeader  {font-size:10.5px; background:#ddd;}
+.postRow     {min-height:22px}
+.postRow2    {min-height:22px; background:#ffd}
+.postRowOver {min-height:22px; background:#ffa}
+
+.listHeader, .listHeader a, .listHeader a:visited{font-size:10.5px; background:#ddd; color:#444; padding:0px 0px 0px 2px;}
+.listRow        {min-height:22px; background:#fff}
+.listRow2       {min-height:22px; background:#ffd}
+.listRowOver    {min-height:22px; background:#ffa}
+.listTD         {border-bottom:1px solid #edb; border-left:1px solid #fff; *border-left:0px; padding:3px 0px 3px 2px;}
+.listFirstTD    {border-bottom:1px solid #edb; padding:3px 0px 3px 2px;}
+.listNote       {border:1px solid #f80; margin-bottom:10px; display:none}
+.listNoteTitle  {background-color:#feb; padding:2px 2px 2px 5px;}
+.listNoteBody   {padding:2px 2px 2px 5px;}
+.listNoteFoot   {padding:2px 2px 2px 5px;}
+
+.postRef    {background:#ffd; border-bottom:1px solid #bbb; padding:0px 0px 0px 2px}
+.postThread {border:1px solid #f80; padding:0px 0px 5px 0px; margin-bottom:10px; display:none}
+.postBody   {font-size:11px; border-bottom: 1px solid #ddd; padding:2px 2px 30px 2px}
+.postAuthor {font-size:11px; color:#999;}
+.postNote   {line-height:1.5; padding:5px 0px 0px 0px}
+
+/* calendar */
+#s_calendar {}
+#s_calendar .s_mcal{float:left; width:160px}
+#s_calendar .s_info{float:left; width:420px; margin-left:15px}
+
+.tblschedule  {width:100%; border-collapse:collapse}
+.tblHeader    {padding:5px; font-weight:bold; font-size:12px; background:#FFFDD9}
+.tblCell      {border:1px solid #666; padding:2px}
+.CalDate      {padding-bottom:5px;}
+.calHeader    {background:#E8E8E8; border:1px solid #999; color:#444; font-size:11px; line-height:14px; padding:2px}
+.calCell      {border:1px solid #999; padding:4px 2px 0px 2px}
+.calCurrMonth {background:#ffd}
+
+.focus        {background:#ff9}
+.border       {border:1px solid #999}
+.borderLight  {border:1px solid #ddd}
+
+.pointer      {cursor:pointer}
+
+.calItem     {background:#ffe}
+.item        {}
+.weekM       {color:#999; line-height:22px}
+.week        {width:30px; padding:7px 2px 5px 2px}
+.holiday     {background:#fdd}
+
+.Type1 {font-weight:bold; color:#000}
+.Type2 {font-weight:bold; color:#000; background:#fdd}
+
+.weekres {background:#ffc; color:#333; font-size:11px; font-weight:bold; line-height:24px;}
+.center  {text-align:center }
+
+.callnk a          {color:#88f;}
+.callnk a:link     {color:#88f;}
+.callnk a:visited  {color:#88f;}
+.callnk a:hover    {color:#f00; text-decoration:none;}
+
+.Ecalendar {background:url(/sys/res/icon/cal_calendar.gif) no-repeat}
+
+.Ecalendar {padding-left:15px}
+.EbgY2     {background-position:0px 2px}
+
+.chart {float:left}

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>Hompage</title>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+ 		<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/redmond/jquery-ui.css" />
+  		<style>
+  			#Logout{
+				font-size: 20px;
+				float:right;
+			}
+
+/* here is a problem */
+			#Logout-box{
+				width:100%;
+				height:50px;
+			}
+
+			#apps {
+  				margin-top: 15px
+  			}
+
+  			.select {
+  				width: 200px;
+  				text-align: center;
+				background-color: black;
+				color: #FFFF66;
+				cursor: pointer;
+				font: bold 25px "Helvetica Neue", Sans-Serif;
+				box-shadow: 0 0 7px black;
+			}
+
+			.friend{
+				width: 300px;
+				height: 420px;
+				
+			}
+
+			.friend-box{
+				text-align: center;
+			}
+
+			.fb-comments{
+				text-align: center;
+			}
+
+			h2 {
+				text-align: center;
+				/*margin-top: 50px;*/
+			}
+
+			.content{
+				text-align: center;	
+			}
+
+			.link {
+				text-align: center;
+				color: blue;
+				text-decoration: blue;
+			}
+			
+			#loading{
+    			margin-left: 167px;
+    			/*margin-top: 0px;*/
+    		}
+
+			fieldset { 
+				padding:0; 
+				border:0; 
+				margin-top:25px; 
+			}
+
+			label, input { 
+				display:block; 
+			}
+
+    		input.text { 
+    			margin-bottom:12px; width:95%; padding: .4em; 
+    		}
+
+    		.ui-widget-content a {
+				color: rgb(36, 209, 43);
+			}
+
+
+  		</style>
+  		<script>
+  			//set the jquery ui tabs
+			$(function() {
+				var tabs = $( "#tabs" ).tabs();
+				tabs.find( ".ui-tabs-nav" ).sortable({
+					axis: "x",
+					stop: function() {
+						tabs.tabs( "refresh" );
+					}
+				});
+
+				setHover();
+				setDialog();
+			});
+
+			//set the mouse event
+  			function setHover(){
+				$("#apps").hover(
+					function () {
+						$(this).addClass("select");
+					},
+					function () {
+						$(this).removeClass("select");
+					}
+				);
+				$("#apps-3").hover(
+					function () {
+						$(this).addClass("select");
+					},
+					function () {
+						$(this).removeClass("select");
+					}
+				);	
+			}
+
+			//set the popout windows of asking question
+			function setDialog(){
+				//alert("YOYO!!")
+				var quest = $( "#quest" );
+				$( "#dialog-form" ).dialog({
+				    autoOpen: false,
+				    height: 300,
+				    width: 350,
+				    modal: true,
+				    show: {
+				    	effect: "fade",
+				    	duration: 1500
+				    },
+				    hide: {
+				    	effect: "explode",
+				    	duration: 500
+				    },
+				    buttons: {
+		        		"Plublish to wall": function() {
+
+		        			// check the status when user want to publish
+		        			FB.getLoginStatus(function(response) {
+								if (response.status === 'connected') {
+
+									FB.api('/me/feed', 'post', {message: quest.val() }, function(response) { 
+										if (!response || response.error) {
+											console.log('Error occured: ' + response.error.message); 
+										} else {
+											console.log('Post ID: ' + response.id);
+											var postid = response.id;
+
+											window.location.assign("http://localhost:5000/result/"+postid);
+										}
+									});
+				            		$( this ).dialog( "close" );
+
+								} else if (response.status === 'not_authorized') {
+									alert('not_authorized, plz relogin');
+									window.location.assign("http://localhost:5000")
+								} else {
+									alert('not login, plz login');
+									window.location.assign("http://localhost:5000")
+								}
+							});
+		            		
+	        			},
+	        			Cancel: function() {
+	          				$( this ).dialog( "close" );
+	        			}
+	      			},
+	      			close: function() {
+	        			quest.val( "" ).removeClass( "ui-state-error" );
+	      			}
+	    		});
+
+				$( "#dialog-friends" ).dialog({
+				    autoOpen: false,
+				    height: 250,
+				    width: 500,
+				    modal: true,
+				    show: {
+				    	effect: "fade",
+				    	duration: 1500
+				    },
+				    hide: {
+				    	effect: "explode",
+				    	duration: 500
+				    },
+				    buttons: {
+		        		'Load friends data from facebook': function() {
+
+		        			// check the status when user want to publish
+		        			FB.getLoginStatus(function(response) {
+								if (response.status === 'connected') {
+
+									friendlist = "";
+									table = {};
+									$( "#loading" ).show();
+									FB.api('/me/friends/', function(response) {
+										
+										//console.log(response);
+										//alert(response.data.length);
+										len = response.data.length;
+										friendlist += "DL n="+len+"$";
+										friendlist += "format=edgelist1$";
+										friendlist += "labels:$";
+
+										$.each(response.data, function(i, friend){
+											if (i==0){
+												friendlist += friend.name;
+											}else {
+												friendlist += ", "+friend.name;
+											}
+											//if (i<5)alert(friend.name+friend.id);
+											table[i] = friend.id;
+										});
+										//console.log("table=");
+										//console.log(table);
+
+										friendlist += "$data:$";
+										
+										output = 0;
+										counter = 0;
+										$.each(table, function(i, friend){
+											
+											//console.log("outside"+i);
+
+											FB.api('/me/mutualfriends/'+table[i], function(response) { 
+												if (!response || response.error) {
+													console.log('Error occured: ' + response.error.message); 
+												}else {
+													//console.log("inside"+i);
+													//console.log(response.data)
+													$.each(response.data, function(j, mutualfriends){
+														for (var k=0; k<len; k++){
+															if (table[k]==mutualfriends.id){
+																i = parseInt(i);
+																k = parseInt(k);
+																friendlist += (i+1)+" "+(k+1)+"$";
+																break;
+															}
+														}
+													});
+													
+
+													counter = counter+1;
+													if (counter==len){
+														//console.log("OUTPUT");
+														window.URL = window.URL || window.webkitURL;
+														var blob = new Blob([friendlist.split('$').join('\n')], {type: 'text/plain'});
+														$('#link').attr('href', window.URL.createObjectURL(blob)).attr('download', 'data.dl');
+														$('#link').show();
+														$( "#loading" ).hide();
+													}
+												}
+											});	
+											
+													
+										});
+
+									});
+
+								} else if (response.status === 'not_authorized') {
+									alert('not_authorized, plz relogin');
+									window.location.assign("http://localhost:5000")
+								} else {
+									alert('not login, plz login');
+									window.location.assign("http://localhost:5000")
+								}
+							});
+		            		
+	        			},
+	        			Cancel: function() {
+	          				$( this ).dialog( "close" );
+	        			}
+	      			},
+	      			close: function() {
+	        			quest.val( "" ).removeClass( "ui-state-error" );
+	      			}
+	    		});
+			}
+
+
+			function Ask(){
+				$( "#dialog-form" ).dialog( "open" );
+			};
+
+			function Get(){
+				$( "#dialog-friends" ).dialog( "open" );
+				$( "#link" ).hide();
+				$( "#loading" ).hide();
+			};
+
+			//set the popout windows of logout confirm
+			$(function() {
+    			$( "#confirm-logout" ).dialog({
+      				resizable: false,
+      				modal: true,
+      				width: 500,
+      				autoOpen: false,
+      				show: {
+				    	effect: "shake",
+				    	duration: 500
+				    },
+				    hide: {
+				    	effect: "explode",
+				    	duration: 1000
+				    },
+      				buttons: {
+        				YES: function() {
+        					FB.logout(function (response) {
+        						alert("GOODBYE~~");
+            					//Do what ever you want here when logged out like reloading the page
+            					window.location.assign("http://localhost:5000");
+        					});
+        				},
+        				Cancel: function() {
+          					$( this ).dialog( "close" );
+        				}
+      				}
+    			});
+  			});
+
+  			function fbLogout() {
+        		$( "#confirm-logout" ).dialog( "open" );
+   			}
+
+   			//<input type='button' id="link" value='Download DL file'/>
+  		</script>
+	</head>
+	<body>
+		<div id="fb-root"></div>
+		<script>
+			(function(d, s, id) {
+		 		var js, fjs = d.getElementsByTagName(s)[0];
+		 		if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/zh_TW/all.js#xfbml=1&appId=179519402197498";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
+		
+		<div id='Logout-box'><input type='button' id='Logout' onClick='fbLogout();' value='LOGOUT'></div>
+
+		<div id="confirm-logout" title="WARNING">
+  			<p class="warning"><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Are you sure you want to logout?</p>
+		</div>
+
+		<div id="tabs">
+			<ul id="tabs-list">
+				<li><a href="#tabs-1">Comment Box</a></li>
+				<li><a href="#tabs-2">Ask to Crowd</a></li>
+				<li><a href="#tabs-3">Data Exporter</a></li>
+			</ul>
+			<div id="tabs-1">
+
+				<h2>【果醬專訪2】-關於追夢║生命不會越來越簡單，只有你變得更強壯才行 </h2>
+				<div class="friend-box"><img class="friend" src="https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-prn1/935067_497430320310125_569160065_n.jpg"/></div>
+				<div class="content">
+					<p>在我的軍旅生涯還沒開始前，家差點鬧起了革命。</p>
+					<p>我是胡經緯，陸軍軍官學校三年級學生，目前在美國維吉尼亞軍校(Virginia Military Institute)交換學生第二年。媽媽是公司主管，爸爸是軍人，妹妹是學生。雖然爸爸是軍人，但我不是從小就有個將軍夢。我想過要當飛行員，我想過要當總統，我想過要當畫家，我想過要當運動員，我想過要當醫生，我想過要當警察….</p>
+					<p>仔細數一下，二十多年來，該想能想要想的天馬行空，我都想過了，直到考完學測公布成績那刻，這個夢，該醒了！</p>
+					<a href="http://thisisajam.wordpress.com/2013/04/20/【果醬專訪】生命不會越來越簡單，只有你變得更/"><div class="link">果醬專訪全文內容請點我>.^</div></a>
+				</div>
+				<br>
+
+				<div><div class="fb-like" data-send="false" data-width="450" data-show-faces="true"></div></div>
+				<div class="fb-comments" data-href="http://localhost:5000/home" data-width="555" data-num-posts="10"></div>
+			</div>
+			<div id="tabs-2">
+				<div type='text' id='apps' onClick='Ask();'>Ask to Crowd</div>
+				<div id="dialog-form" title="Ask to Crowd">
+					<p class="validateTips">Please Enter.</p>
+					<form>
+						<fieldset>
+							<label for="quest">Question</label>
+								<input type="text" name="quest" id="quest" class="text ui-widget-content ui-corner-all" />
+							</fieldset>
+					</form>
+				</div>
+			</div>
+
+			<div id="tabs-3">
+				<div type='text' id='apps-3' onClick='Get();'>Get Friends</div>
+				
+				<div id="dialog-friends" title="Get Friends">
+					<h2><a id="link">Download DL file</a></h2>
+					<img id="loading" src="https://dl.dropboxusercontent.com/u/65282618/loading.gif"></a>
+				</div> 
+			</div>
+		</div>
+	</body>
+</html>

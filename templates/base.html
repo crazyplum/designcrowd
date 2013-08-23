@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="{{url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet">
+    {% block csss %}{% endblock %}
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+      #main{
+        margin-bottom: 100px;
+      }
+      {% block css %}{% endblock %}
+    </style>
+    <link href="{{url_for('static', filename='css/bootstrap-responsive.css')}}" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    {% block js %}{% endblock %}
+  
+  </head>
+
+  <body>
+    <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+        // init the FB JS SDK
+        FB.init({
+          appId      : '236666619791991',                        // App ID from the app dashboard
+          channelUrl : '//localhost:5000/', // Channel file for x-domain comms
+          status     : true,                                 // Check Facebook Login status
+          xfbml      : true                                  // Look for social plugins on the page
+        });
+
+        // Additional initialization code such as adding Event Listeners goes here
+          console.log('finished loading facebook')
+          jQuery(document).trigger('FBSDKLoaded');
+        };
+
+        // Load the SDK asynchronously
+        (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+      </script>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">SCAD</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/ask">Ask!</a></li>
+            </ul>
+            <div id="right-banner" class="navbar-form pull-right">
+              {% block button %}{% endblock %}
+            </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="main">
+      
+      {% block content %}{% endblock %}
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  </body>
+</html>

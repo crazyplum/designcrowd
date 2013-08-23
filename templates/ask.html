@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Ask{% endblock %}
+{% block css %}{% endblock %}
+{% block csss %}
+<link href="{{url_for('static', filename='css/ask.css')}}" rel="stylesheet">
+{% endblock %}
+{% block js %}<script type="text/javascript" src="{{url_for('static', filename='js/fb-auth.js')}}"></script>{% endblock %}
+{% block content %} 
+	<div id='post-area'>
+		<form class="form-inline">
+			<legend>Ask something...</legend>
+			<input id='post-box' type="text" placeholder="Anything you want to know?">
+			<button id='publish-button' type="button" class="btn btn-info">Post to Wall</button>
+		</form>
+	</div>
+	<div id='post-list'>
+	</div>
+
+{% endblock %}

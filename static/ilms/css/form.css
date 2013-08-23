@@ -1,0 +1,51 @@
+TABLE.Form
+{
+    font-family: Arial, Helvetica, sans-serif; font-size: 12px; color:#606060;
+    border-collapse: collapse;
+    border: 1px solid #e5e2DA;
+}
+
+TD.FormHeader
+{
+    background-color:#e8e8e8;
+    border-color: #C5C2DA;
+    text-align: left;
+    font-size: 13px;
+    font-weight: bold;
+    color: #000000;
+}
+
+
+TD.FormFooter
+{
+    background-color:#e8e8e8;
+    border-color: #C5C2DA;
+    font-size: 13px;
+    font-weight: bold;
+    color: #000000;
+}
+TD.FormLeft
+{
+    background-color:#f4f4f4;
+    text-align: right;
+    color: #000000;
+}
+
+TD.FormRight
+{
+    background-color:#ffffff;
+    text-align: left;
+    color: #606060;
+}
+
+.Text 
+{
+    font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #6060ff;
+    border-width: 1px; 
+    border-style:solid; 
+    border-color:#cccccc; 
+}
+
+.ongoing { color: blue; }
+.ok { color: darkgreen; }
+.required { color: #FF0000; }

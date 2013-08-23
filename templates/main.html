@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <title>Demo</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="btn-group">
+      <button id="dragify-btn" class="btn">Dragify</button>
+      <button id="btn2" class="btn">function 2</button>
+      <button id="btn3" class="btn">function 3</button>
+    </div>
+</div>
+
+<div class="iframe-container">
+    <iframe id="wp_iframe" src="/proxy/{{ frame_src }}" frameborder="0"></iframe>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+
+
+<script>
+$('#wp_iframe').attr('width', $(window).width() );
+$('#wp_iframe').attr('height', $(window).height() - 50);
+
+$('#wp_iframe').load(function () {  
+
+    var contents = $('iframe').contents(),
+    body = contents.find('body');
+
+    $('#dragify-btn').click(function(){
+        body.html('hishfsf');
+        console.log('button pressed');
+    });
+
+    $('textarea').keyup(function() {
+        var $this = $(this);
+        if ( $this.attr('id') === 'html') {
+            body.html( $this.val() );
+        } else {
+            // it had to be css
+            styleTag.text( $this.val() );
+        }
+    });
+
+});
+
+</script>
+
+</body>
+</html>

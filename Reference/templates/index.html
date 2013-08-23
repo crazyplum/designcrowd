@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>Log In Page</title>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	</head>
+	<body>
+		<div id="fb-root"></div>
+		<script>
+			// Load the SDK asynchronously
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/all.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+			
+			window.fbAsyncInit = function() {
+				// init the FB JS SDK
+				FB.init({
+					appId      : '179519402197498',                      // App ID from the app dashboard
+					channelUrl : '', 									 // Channel file for x-domain comms
+					status     : true,                                   // Check Facebook Login status
+					xfbml      : true,                                   // Look for social plugins on the page
+					cookie	   : true
+				});
+			
+				// Additional initialization code such as adding Event Listeners goes here
+				FB.getLoginStatus(function(response) {
+					if (response.status === 'connected') {
+						alert('connected');
+						// the user is logged in and has authenticated your
+						// app, and response.authResponse supplies
+						// the user's ID, a valid access token, a signed
+						// request, and the time the access token 
+						// and signed request each expire
+						var access_token = response.authResponse.accessToken;
+						console.log(access_token);
+						facebookLoginCallback();
+					} else if (response.status === 'not_authorized') {
+						alert('not_authorized, plz relogin');
+						// the user is logged in to Facebook, 
+						// but has not authenticated your app
+						
+						login();
+					} else {
+						alert('not login, plz login');
+						// the user isn't logged in to Facebook.
+						
+						login();
+					}
+				});
+			};
+
+			
+			function login(){
+				FB.login(function(response) {
+					if (response.authResponse) {
+						alert('Welcome!  Fetching your information.... ');
+						console.log('Welcome!  Fetching your information.... ');
+						facebookLoginCallback();
+					} else {
+						alert('User cancelled login or did not fully authorize.');
+						console.log('User cancelled login or did not fully authorize.');
+					}
+				}, {scope:'read_stream,publish_stream,offline_access,email'});
+			}
+			
+			
+			 function facebookLoginCallback(){
+				window.location.assign("http://localhost:5000/home");
+			}
+			
+			//<fb:login-button perms="publish_stream,read_stream,friends_location,email" onlogin="facebookLoginCallback();" size="large"></fb:login-button>
+
+		</script>
+		<input type='button' onclick='login();' value='Login'/>
+	</body>
+</html>

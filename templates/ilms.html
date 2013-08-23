@@ -1,0 +1,1038 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv='X-UA-Compatible' content='IE=9; requiresActiveX=true' >
+<meta name="keywords" content="" />
+<meta name="description" content="國立清華大學 iLMS數位學習平台" />
+<title>國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/static/ilms/css/dom.css");</style>
+<style>@import URL("/static/ilms/css/style.css");</style>
+<style>@import URL("/static/ilms/css/form.css");</style>
+<style>@import URL('/static/ilms/css/highslide.css');</style>
+<script src='/static/ilms/js/dom.js'></script>
+<script src='/static/ilms/js/lib.js'></script>
+<script src='/static/ilms/js/calendar.js'></script>
+<script src='/static/ilms/js/active_control.js'></script>
+<script src='/static/ilms/js/charts.js'></script>
+<script src='/static/js/jquery-1.9.1.js'></script>
+<script src='/static/js/save.js'></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/blitzer/jquery-ui.css" />
+<script src='/static/ilms/js/highslide-with-html.js'></script>
+<script>
+    function insertBulletin()
+    {
+        $showModal('新增', '/sys/adm/bulletin_insert.php?modal=1&folderID=1', 800, 475, onCloseModal);
+    }
+    function onCloseModal()
+    {
+        if ($modalarg && $modalarg.status == "true")
+        {
+            window.location.reload();
+            return ;
+        }
+
+        $closeModal();
+    }
+    function onReload()
+    {
+        window.location.reload();
+    }
+    function init()
+    {
+        showChartList();
+    }
+    function menuPopup(src, id)
+    {
+        var display;
+        var obj = src.parentNode;
+        if (obj.getElementsByTagName('ul')[0])
+        {
+            display = obj.getElementsByTagName('ul')[0].style.display;
+            if ("1" == "1")
+            {
+                var ids = $getCookie("cookie_menu_0");
+                if (display == "block")
+                {
+                    if (ids.indexOf("," + id + ",",0) >= 0)
+                    {
+                        ids = ids.replace("," + id + ",", ",");
+                        $setCookie("cookie_menu_0", ids, 0);
+                    }
+                }
+                else
+                {
+                    if (ids.indexOf("," + id + ",",0) < 0)
+                    {
+                        ids = (ids == "") ? "," + id + "," : ids + id + ",";
+                        $setCookie("cookie_menu_0", ids, 0);
+                    }
+                }
+            }
+            obj.getElementsByTagName('ul')[0].style.display = (display == "block") ? "none" : "block";
+        }
+    }
+    function menuPopup2(obj, display)
+    {
+        display = (display == 1) ? "block" : "none";
+        if (obj.getElementsByTagName('ul')[0])
+            obj.getElementsByTagName('ul')[0].style.display = display;
+    }
+    function nothing(){}
+    function insertRss(id, h)
+    {
+        var obj = $("rss_body_" + id);
+        if (obj) obj.innerHTML = h;
+    }
+    function funcEdit(id)
+    {
+        $showModal('編輯', '/index/layout/func_edit.php?id=' + id + '&themeID=1&noOrder=1', 750, 350, onReload);
+    }
+    function divInit()
+    {
+        var cols = Math.floor($j("#divisionBox").width() / $j("#divisionBox .dir").width());
+        var count = $j("#divisionBox .dir").length;
+        for (var i=0; i<count; i++)
+        {
+            if (i%cols == (cols-1))
+                $j("#divisionBox .dir:eq(" + i + ")").after("<div class=clear></div>");
+        }
+    }
+    function statisticInit()
+    {
+        var cols = Math.floor($j("#statisticBox").width() / $j("#statisticBox .chart").width());
+        var count = $j("#statisticBox .chart").length;
+        for (var i=0; i<count; i++)
+        {
+            if (i%cols == (cols-1))
+                $j("#statisticBox .chart:eq(" + i + ")").after("<div class=clear></div>");
+        }
+    }
+</script>
+<style>
+    .ui-dialog-title{
+      font-size: 17px;
+    }
+
+    .color-dialog{
+      width:100px;
+    }
+
+    #toolbar {
+      top: 0px;
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+    }
+
+    .container{
+      margin-top:100px;
+      margin-left: 50px;
+    }
+
+    #save{
+      margin-left: 50px;
+    }
+
+    #angle{
+      width: 35px;
+    }
+
+    #base{
+      margin-top:50px;
+    }
+
+    #menu{
+        overflow: visible;
+    }
+
+    #main{
+        overflow: visible;
+    }
+  </style>
+</head>
+
+<body onload="init();">
+<div id="fb-root"></div>
+<script>
+        window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({
+                appId      : '179519402197498',                      // App ID from the app dashboard
+                channelUrl : '//csclab12.cs.nthu.edu.tw/',                                   // Channel file for x-domain comms
+                status     : true,                                   // Check Facebook Login status
+                xfbml      : true                                   // Look for social plugins on the page
+            });
+        console.log('finished loading facebook');
+        jQuery(document).trigger('FBSDKLoaded');
+    };
+		// Load the SDK asynchronously
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		
+		
+
+</script>
+
+<div id="toolbar" class="ui-widget-header ui-corner-all">
+    <button id="save">Save</button>
+    <button id="create">Say Something!</button>
+    <button id="resizify">Resize!</button>
+    <span id="radio">
+      <input type="radio" id="radio1" name="radio" /><label for="radio1">Drag&Drop</label>
+      <input type="radio" id="radio2" name="radio" /><label for="radio2">Change Color</label>
+      <input type="radio" id="radio3" name="radio" /><label for="radio3">Delete</label>
+      <input type="radio" id="radio4" name="radio" /><label for="radio4">Font Resizer</label>
+      <input type="radio" id="radio5" name="radio" /><label for="radio5">Image Rotater</label>
+    </span>
+    <input  type="text" id="status" value="None"/>
+    <span id="AAA">
+      <button class="jfontsize-button" id="jfontsize-m">A-</button>
+      <button class="jfontsize-button" id="jfontsize-d">A</button>
+      <button class="jfontsize-button" id="jfontsize-p">A+</button>
+    </span>
+    <span id="color-group">
+      <button id="color-txt">Text Color</button>
+      <button id="color-bg">Background Color</button>
+    </span>
+</div> <!--end toolbar-->
+<div id=base>
+<div id=base2>
+<div id=base3>
+    <div id=sysbar>
+	<div id=sysbar2>
+	<div id=sysbar3>
+		    <div id=login class="dragme colorme hideme fontme rotateme">
+        <script type="text/javascript">var gRedirectHome = true;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明'
+    };
+
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src='/static/ilms/js/login.js'></script>
+<a href='/course/index.php' id='_lms'>LMS</a><img src='/static/ilms/icon/line.gif' style='padding: 0 5px;'><a href='/board/index.php' id='_cm'>知識社群</a><img src='/static/ilms/icon/line.gif' style='padding: 0 5px;'><a href='javascript:login("", "", "")'>登入</a>    </div>
+    <div id=search class="dragme colorme hideme fontme rotateme">
+中文<img src='/static/ilms/icon/line.gif' style='padding: 0 8px;'><a href='javascript:m_changeLang("en-us")'>English</a><img src='/static/ilms/icon/line.gif' style='padding: 0 8px;'><a href='http://lms.nthu.edu.tw/course/74' target=_blank>Q&amp;A</a><img src='/static/ilms/icon/line.gif' style='padding: 0 8px;'>線上人數: <span id='counter'>558</span>&nbsp;<input id=txtSearch onkeypress='$searchEnter(event)' type='text' style='height:15px; font-size:12px; width:80px;'><img style='cursor:pointer' onclick='$searchSubmit()' src='/static/ilms/icon/find.png' align=absmiddle>    </div>
+    <div class=clear></div>
+
+<script>
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search.php?scope=1&area=251&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        $setCookie("ck_locale", newLang, 365);
+        $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+    }
+    function m_onChangeLang(obj) { window.location.reload(); }
+
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+
+    function m_mgrHomeMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("idxMgr", m_onIdxMgrMenuClick);
+
+        var _arg = {};
+        $mnu.m_append("首頁設定", "profile", _arg);
+        $mnu.m_append("選單管理", "menu", _arg);
+        $mnu.m_append("版面配置", "layout", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+
+        var a = $area($("idxMgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onIdxMgrMenuClick(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":     m_mgrIdxProfile(); break;
+            case "menu":        m_mgrIdxMenus(); break;
+            case "layout":      m_mgrIdxLayout(); break;
+            case "theme":       m_mgrIdxTheme(); break;
+            case "css":         m_mgrIdxCss(); break;
+        }
+    }
+    function m_mgrIdxProfile()      { $showModal("首頁設定", "/index/profile_edit.php?id=1", 750, 480, onCloseModal); }
+    function m_mgrIdxMenus()        { $showModal("選單管理", "/index/menu/menu.php?id=1", 720, 450, onReload); }
+       function m_mgrIdxLayout()       { window.location.href = "/index/layout/layout.php?id=1"}
+    function m_mgrIdxTheme()        { $showModal("套用版面樣式", "/index/theme.php?id=1", 800, 500, onCloseModal); }
+    function m_mgrIdxCss()          { $showModal("編輯樣式",   "/index/theme_edit.php?id=1", 800, 550, onCloseModal); }
+</script>    </div>
+	</div>
+	</div>
+    <div id=mainBody>
+	<div id=mainBody2>
+	<div id=mainBody3>
+		<div id=banner>
+		<div id=banner2>
+		<div id=banner3>
+                <div><a href='/course/index.php'><img class="dragme hideme rotateme resizeme" id="logo" src='/static/ilms/icon/logo.jpg'></a></div>
+            <div style='clear:both'></div>
+                 </div>
+		</div>
+		</div>
+        <div id=content>
+		<div id=content2>
+		<div id=content3>
+            <div id=menu>
+			<div id=menu2>
+			<div id=menu3>
+				
+				<div id=mbox1>
+					<div id='textArea_153' class='box textArea dragme colorme hideme fontme rotateme'>
+                <div class='box2'>
+                <div class='box3'>
+                    
+                    <div class=boxBody><DIV><A href="javascript:login('','','')"><IMG border=0 src="http://lms.nthu.edu.tw/blog/webhd_read_file.php?id=2956&amp;verifyCode=b0373a6c4287f291907febeb83424a29"></A>&nbsp;</DIV></div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div><div id='textArea_127' class='box textArea dragme colorme hideme fontme rotateme'>
+                <div class='box2'>
+                <div class='box3'>
+                    
+                    <div class=boxBody><DIV><SPAN style="LETTER-SPACING: 0.7pt; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; FONT-SIZE: 16px; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-themecolor: accent2; mso-themeshade: 128; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA"><SPAN style="WIDOWS: 2; TEXT-TRANSFORM: none; TEXT-INDENT: 0px; LETTER-SPACING: normal; DISPLAY: inline !important; FONT: 16px/24px 微軟正黑體, sans-serif; WHITE-SPACE: normal; ORPHANS: 2; FLOAT: none; COLOR: rgb(99,36,35); WORD-SPACING: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px"><STRONG>使用iLMS</STRONG></SPAN></SPAN></DIV>
+<DIV><SPAN style="LETTER-SPACING: 0.7pt; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; FONT-SIZE: 16px; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-themecolor: accent2; mso-themeshade: 128; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA"><SPAN style="WIDOWS: 2; TEXT-TRANSFORM: none; TEXT-INDENT: 0px; LETTER-SPACING: normal; DISPLAY: inline !important; FONT: 16px/24px 微軟正黑體, sans-serif; WHITE-SPACE: normal; ORPHANS: 2; FLOAT: none; COLOR: rgb(99,36,35); WORD-SPACING: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px"></SPAN>(1) <A href="http://lms.nthu.edu.tw/course.php?courseID=74&amp;f=doc&amp;cid=233363">登入方式說明</A>&nbsp;<SPAN style="COLOR: #000000"><A href="http://lms.nthu.edu.tw/course.php?courseID=74&amp;f=doc&amp;cid=233766">How to login</A></SPAN></SPAN></DIV>
+<DIV><SPAN style="LETTER-SPACING: 0.7pt; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; FONT-SIZE: 16px; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-themecolor: accent2; mso-themeshade: 128; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA">(2)【設定課程助教】授課教師</SPAN><SPAN style="LETTER-SPACING: 0.7pt; FONT-FAMILY: 微軟正黑體, sans-serif; COLOR: rgb(99,36,35); FONT-SIZE: 16px">可自行設定，請參考</SPAN><A style="LETTER-SPACING: 0.7pt; FONT-FAMILY: 微軟正黑體, sans-serif; FONT-SIZE: 16px" href="http://lms.nthu.edu.tw/course.php?courseID=74&amp;f=doc&amp;cid=171485">設定步驟</A><SPAN style="LETTER-SPACING: 0.7pt; FONT-FAMILY: 微軟正黑體, sans-serif; COLOR: rgb(99,36,35); FONT-SIZE: 16px">，助教也可以</SPAN><A style="LETTER-SPACING: 0.7pt; FONT-FAMILY: 微軟正黑體, sans-serif; FONT-SIZE: 16px" href="javascript:openDialog('申請助教','/home/assistant_apply.php',800,550)"><STRONG>自行提出申請</STRONG></A><SPAN style="LETTER-SPACING: 0.7pt; FONT-FAMILY: 微軟正黑體, sans-serif; COLOR: rgb(99,36,35); FONT-SIZE: 16px">。</SPAN></DIV><SPAN style="LETTER-SPACING: 0.7pt; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; FONT-SIZE: 16px; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-themecolor: accent2; mso-themeshade: 128; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA"><SPAN style="FONT-SIZE: 16px">
+<DIV><SPAN style="LETTER-SPACING: 0.7pt; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; FONT-SIZE: 16px; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-themecolor: accent2; mso-themeshade: 128; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA">(3)<A href="http://lms.nthu.edu.tw/course/74">常見問題Q&amp;A / 線上客服專區</A></SPAN></DIV>
+<DIV><SPAN style="LETTER-SPACING: 0.7pt; FONT-FAMILY: '微軟正黑體','sans-serif'; COLOR: #632423; FONT-SIZE: 16px; mso-bidi-font-family: Arial; mso-font-kerning: 0pt; mso-themecolor: accent2; mso-themeshade: 128; mso-ansi-language: EN-US; mso-fareast-language: ZH-TW; mso-bidi-language: AR-SA">(4)<A href="http://sites.powercam.cc/site/ilms" target=_blank>線上觀看使用手冊</A></SPAN></DIV>
+<DIV>(5)<A href="http://lms.nthu.edu.tw/course.php?courseID=74&amp;f=doc&amp;cid=230617">PowerCam軟體下載</A></DIV></SPAN></SPAN></div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div><div id='textArea_154' class='box textArea dragme colorme hideme fontme rotateme'>
+                <div class='box2'>
+                <div class='box3'>
+                    
+                    <div class=boxBody><DIV><SPAN style="WIDOWS: 2; TEXT-TRANSFORM: none; TEXT-INDENT: 0px; LETTER-SPACING: normal; DISPLAY: inline !important; FONT: 16px/24px 微軟正黑體, sans-serif; WHITE-SPACE: normal; ORPHANS: 2; FLOAT: none; COLOR: rgb(99,36,35); WORD-SPACING: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px"><STRONG>聯絡資訊 Contact us</STRONG></SPAN></DIV>
+<DIV><SPAN style="WIDOWS: 2; TEXT-TRANSFORM: none; TEXT-INDENT: 0px; LETTER-SPACING: normal; DISPLAY: inline !important; FONT: 16px/24px 微軟正黑體, sans-serif; WHITE-SPACE: normal; ORPHANS: 2; FLOAT: none; COLOR: rgb(99,36,35); WORD-SPACING: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">Email：<A href="mailto:elearn@cc.nthu.edu.tw">elearn@cc.nthu.edu.tw</A></SPAN></DIV>
+<DIV><SPAN style="WIDOWS: 2; TEXT-TRANSFORM: none; TEXT-INDENT: 0px; LETTER-SPACING: normal; DISPLAY: inline !important; FONT: 16px/24px 微軟正黑體, sans-serif; WHITE-SPACE: normal; ORPHANS: 2; FLOAT: none; COLOR: rgb(99,36,35); WORD-SPACING: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">TEL：<SPAN style="WIDOWS: 2; TEXT-TRANSFORM: none; TEXT-INDENT: 0px; LETTER-SPACING: normal; DISPLAY: inline !important; FONT: 16px/24px 微軟正黑體, sans-serif; WHITE-SPACE: normal; ORPHANS: 2; FLOAT: none; COLOR: rgb(99,36,35); WORD-SPACING: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">03-5715131 ext.31237 廖小姐</SPAN></SPAN></DIV>
+<DIV><SPAN style="WIDOWS: 2; TEXT-TRANSFORM: none; TEXT-INDENT: 0px; LETTER-SPACING: normal; DISPLAY: inline !important; FONT: 16px/24px 微軟正黑體, sans-serif; WHITE-SPACE: normal; ORPHANS: 2; FLOAT: none; COLOR: rgb(99,36,35); WORD-SPACING: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px"><SPAN style="WIDOWS: 2; TEXT-TRANSFORM: none; TEXT-INDENT: 0px; LETTER-SPACING: normal; DISPLAY: inline !important; FONT: 16px/24px 微軟正黑體, sans-serif; WHITE-SPACE: normal; ORPHANS: 2; FLOAT: none; COLOR: rgb(99,36,35); WORD-SPACING: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px">如果您需要任何的協助，非常歡迎與我們聯絡。</SPAN></SPAN></DIV>
+<DIV><IMG border=0 alt="" src="http://lms.nthu.edu.tw/blog/webhd_read_file.php?id=2919&amp;verifyCode=d34ff84510b1dccb1ae9cd21affdc495"></DIV></div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div><div id='textArea_92' class='box textArea dragme colorme hideme fontme rotateme'>
+                <div class='box2'>
+                <div class='box3'>
+                    <div class=boxHeader>申請社群 </div>
+                    <div class=boxBody><DIV>歡迎使用 iLMS 數位學習平台，本系統除了有完整的課程功能外，更整合了社群功能(目前提供班版、社團、實驗室、計畫等申請)，可滿足學生 / 老師 / 社團等資訊入口的需求。</DIV>
+<DIV>請按 <A href="javascript:openDialog('申請社群', '/home/board_apply.php', 700, 400)"><SPAN style="COLOR: #4444ff; FONT-WEIGHT: bold">這裡</SPAN></A>&nbsp;提出申請，約需&nbsp;1 個工作天審核。</DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&gt;&gt;<A href="http://sites.powercam.cc/site/demo" target=_blank>社群的簡單介紹及使用手冊</A></DIV>
+<DIV>&nbsp;</DIV>
+<DIV>&nbsp;</DIV></div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div><div id='textArea_91' class='box textArea dragme colorme hideme fontme rotateme'>
+                <div class='box2'>
+                <div class='box3'>
+                    <div class=boxHeader>登入系統說明 </div>
+                    <div class=boxBody>
+<STYLE>
+<!--
+.active {
+ border: 1px solid #7D7D7D;
+ border-bottom: none;
+
+
+background:#ff7;
+padding-left:2px;
+ color:#000;
+ cursor:pointer;
+}
+.inactive {
+ border: none;
+padding-left:2px;
+ color:#777;
+ border-bottom: 1px solid #7D7D7D;
+ cursor:pointer;
+}
+.layer {
+ border: 1px solid #7D7D7D;
+
+
+background:#ff7;
+
+ border-top: none;
+ padding:2px;
+}
+-->
+</STYLE>
+
+<SCRIPT language=JavaScript>
+//<![CDATA[
+var currentLayer = "cell1";
+ var currentDiv = "d1";
+ function showLayer(obj,div){
+  if(currentLayer!=obj.id) {
+   showIt(currentLayer,currentDiv,false);
+   currentLayer = obj.id;
+   currentDiv = div;
+   showIt(currentLayer,currentDiv,true);
+  }
+ }
+ function showIt(o,d,mode){
+  var obj = document.getElementById(o);
+  var div = document.getElementById(d);
+  obj.className = mode?"active":"inactive";
+  div.style.display = mode?"block":"none";
+ }
+//]]>
+</SCRIPT>
+
+<TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
+<TBODY>
+<TR align=center>
+<TD id=cell1 class=active onclick="showLayer(this,'d1');" width="25%"><B>本校學生</B></TD>
+<TD id=cell2 class=inactive onclick="showLayer(this,'d2');" width="25%"><B>外校學生</B></TD>
+<TD id=cell3 class=inactive onclick="showLayer(this,'d3');" width="25%"><B>教師</B></TD>
+<TD class=inactive>&nbsp;</TD>
+<TD style="BORDER-BOTTOM: #7d7d7d 1px solid"></TD></TR>
+<TR width="80%">
+<TD colSpan=4>
+<DIV style="DISPLAY: block" id=d1 class=layer>(1)一般生：帳號為學號<SPAN style="COLOR: #0000e0"><STRONG>不含</STRONG></SPAN>英文字母 (ex.<SPAN style="COLOR: #ff0000"><STRONG>101000001</STRONG></SPAN>)&nbsp;&nbsp;&nbsp;<BR>For General Students,username is your Student ID<SPAN style="COLOR: #0000e0"><STRONG> without</STRONG></SPAN> the first english letter. (ex.<SPAN style="COLOR: #ff0000"><STRONG>101000001</STRONG></SPAN>)<BR>(2)交換生：帳號為學號<SPAN style="COLOR: #0000e0"><STRONG>含</STRONG></SPAN>英文字母 (ex.<SPAN style="COLOR: #ff0000"><STRONG>x1010001</STRONG></SPAN>)<BR>For Exchange Students,username is your Student ID. (ex.<SPAN style="COLOR: #ff0000"><STRONG>x1010001</STRONG></SPAN>)<BR><BR><STRONG>[預設密碼]<BR></STRONG>(1) 一般生為身分證字號末<SPAN style="COLOR: #0000e0"><STRONG>四碼</STRONG></SPAN>+出生日期<SPAN style="COLOR: #0000e0"><STRONG>四碼</STRONG></SPAN>(<SPAN style="COLOR: #ff0000"><STRONG>月月日日</STRONG></SPAN>)，ex. 身分證字號為A12345<SPAN style="COLOR: #0000e0">6789 </SPAN>出生日期為68<SPAN style="COLOR: #0000e0">0101</SPAN>，則預設密碼為<SPAN style="COLOR: #0000e0"><STRONG>67890101</STRONG></SPAN><BR>(2) 大陸交換生為個人身分證號碼<SPAN style="COLOR: #0000e0"><STRONG>末四碼</STRONG></SPAN>+出生日期<SPAN style="COLOR: #0000e0"><STRONG>四碼</STRONG></SPAN><BR>(3) For Foreign Students,default password will be<SPAN style="COLOR: #0000e0"><STRONG> the last four digits of your Passport number and your birthday(MMDD). </STRONG></SPAN>Ex: Your Passport number is 123456789, and your birthday is1990/01/01, then default password should be 67890101.</DIV>
+<DIV style="DISPLAY: none" id=d2 class=layer>帳號為<SPAN style="COLOR: #ff0000"><STRONG>身分證字號</STRONG></SPAN>&nbsp;&nbsp;&nbsp;<BR>預設密碼為<SPAN style="COLOR: #ff0000"><STRONG>身份證末四碼</STRONG></SPAN> </DIV>
+<DIV style="DISPLAY: none" id=d3 class=layer>帳號為<SPAN style="COLOR: #ff0000"><STRONG>人事編號</STRONG></SPAN> (ex.<SPAN style="COLOR: #ff0000"><STRONG>B99999</STRONG></SPAN>)&nbsp;&nbsp;&nbsp;<BR><BR>[預設密碼]<BR>(1) 一般教師為身分證字號末<SPAN style="COLOR: #0000e0"><STRONG>四碼</STRONG></SPAN>+出生日期<SPAN style="COLOR: #0000e0"><STRONG>四碼</STRONG></SPAN>(<SPAN style="COLOR: #ff0000"><STRONG>月月日日</STRONG></SPAN>)，ex. 身分證字號為A12345<SPAN style="COLOR: #0000e0">6789 </SPAN>出生日期為68<SPAN style="COLOR: #0000e0">0101</SPAN>，則預設密碼為<SPAN style="COLOR: #0000e0"><STRONG>67890101</STRONG></SPAN><BR>(2) 非本國教師請輸入<SPAN style="COLOR: #0000e0"><STRONG>生日八碼</STRONG></SPAN> </DIV></TD></TR></TBODY></TABLE><BR>若您對登入方式有任何疑問或是發現無法登入<BR>請寫信至<A href="mailto:elearn@cc.nthu.edu.tw" ?mailto:elearn@cc.nthu.edu.tw\??>elearn@cc.nthu.edu.tw</A>或電洽<STRONG>31237廖倪佑</STRONG></div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div>
+				</div>
+								<div id=mbox2>
+					<!-- CACHE DATA --><div class='box courseOpen dragme colorme hideme fontme rotateme' id=courseOpen_1>
+                <div class=box2>
+                <div class=box3>
+                    <div class=boxHeader>開放課程</div>
+                    <div class=boxBody>
+                        <div class=boxItem><a href='/course/13270' title='ＪＡＶＡ語言JAVA Programming Language'>ＪＡＶＡ語言JAVA Programming Language</a> <span class=hint>(572)</span></div><div class=boxItem><a href='/course/7085' title='計算機程式設計Introduction to Programming'>計算機程式設計Introduction to Programming</a> <span class=hint>(570)</span></div><div class=boxItem><a href='/course/3997' title='作業系統Operating Systems'>作業系統Operating Systems</a> <span class=hint>(545)</span></div><div class=boxItem><a href='/course/4001' title='嵌入式系統概論Intorduction to Embedded Systems'>嵌入式系統概論Intorduction to Embedded Systems</a> <span class=hint>(529)</span></div><div class=boxItem><a href='/course/9120' title='作業系統Operating Systems'>作業系統Operating Systems</a> <span class=hint>(482)</span></div><div class=boxItem><a href='/course/6234' title='台灣的日本殖民經驗與認同The Colonial Taiwan and its Identity'>台灣的日本殖民經驗與認同The Colonial Taiwan and its Identity</a> <span class=hint>(482)</span></div><div class=boxItem><a href='/course/13300' title='平行程式Parallel Programming'>平行程式Parallel Programming</a> <span class=hint>(436)</span></div><div class=boxItem><a href='/course/11351' title='雲端程式設計Cloud Programming'>雲端程式設計Cloud Programming</a> <span class=hint>(424)</span></div>
+                    </div>
+                    <div class=boxFooter><div class=more onclick='window.location.href="/course/index.php?nav=course&t=open"'>
+                                            <a href='/course/index.php?nav=course&t=open'>...更多</a>
+                                        </div></div>
+                </div>
+                </div>
+            </div>
+				</div>
+				            </div>
+			</div>
+			</div>
+            <div id=main>
+			<div id=main2>
+			<div id=main3>
+				
+				<div id=xbox1>
+					<div class='box bulletinNews dragme colorme hideme fontme rotateme' id=bulletinNews_4>
+                <div class=box2>
+                <div class=box3>
+                    <div class=boxHeader>最新公告 </div>
+                    <div class=boxBody>
+                        
+            <div class=tableBox>
+                <table class=table>
+                    <tr class=header><td class=td width=55px align=center>編號</td><td class=td  align=center>標題</td><td class=td width=55px align=center>人氣</td><td class=td width=80px align=center>時間</td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=55px align=center >363758</td><td class=td valign=top  align=left ><div class=hidden title='0522網站更新維護作業已經順利完成，iLMS系統恢復正常運作'><a href='/index.php?nav=news_show&newsID=363758'>0522網站更新維護作業已經順利完成，iLMS系統恢復正常運作</a>  </div></td><td class=td valign=top width=55px align=center >76</td><td class=td valign=top width=80px align=center ><div class=hidden>05-22 08:11</div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=55px align=center >313219</td><td class=td valign=top  align=left ><div class=hidden title='101學年第2學期的課程資料已完成匯入'><a href='/index.php?nav=news_show&newsID=313219'>101學年第2學期的課程資料已完成匯入</a>  </div></td><td class=td valign=top width=55px align=center >356</td><td class=td valign=top width=80px align=center ><div class=hidden>01-31 11:00</div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=55px align=center >264548</td><td class=td valign=top  align=left ><div class=hidden title='提醒您！請務必將您的密碼設定為安全性較高的密碼'><a href='/index.php?nav=news_show&newsID=264548'>提醒您！請務必將您的密碼設定為安全性較高的密碼</a>  </div></td><td class=td valign=top width=55px align=center >474</td><td class=td valign=top width=80px align=center ><div class=hidden>11-05 15:52</div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=55px align=center >258174</td><td class=td valign=top  align=left ><div class=hidden title='9/21應用課程錄影出爐囉！錯過當天精采課程的話，趕快來點選觀看唷'><a href='/index.php?nav=news_show&newsID=258174'>9/21應用課程錄影出爐囉！錯過當天精采課程的話，趕快來點選觀看唷</a>  </div></td><td class=td valign=top width=55px align=center >427</td><td class=td valign=top width=80px align=center ><div class=hidden>10-26 09:39</div></td></tr><tr class=row2 onmouseover='this.className="rowOver"' onmouseout='this.className="row2"'><td class=td valign=top width=55px align=center >231640</td><td class=td valign=top  align=left ><div class=hidden title='Having problem signing in?'><a href='/index.php?nav=news_show&newsID=231640'>Having problem signing in?</a>  </div></td><td class=td valign=top width=55px align=center >379</td><td class=td valign=top width=80px align=center ><div class=hidden>09-21 17:44</div></td></tr><tr class=row onmouseover='this.className="rowOver"' onmouseout='this.className="row"'><td class=td valign=top width=55px align=center >229097</td><td class=td valign=top  align=left ><div class=hidden title='【重要提醒】申請助教的同學請注意！'><a href='/index.php?nav=news_show&newsID=229097'>【重要提醒】申請助教的同學請注意！</a>  </div></td><td class=td valign=top width=55px align=center >1114</td><td class=td valign=top width=80px align=center ><div class=hidden>09-14 15:46</div></td></tr>
+                    </table>
+                </div>
+                    </div>
+                    <div class=boxFooter><div class=more onclick='window.location.href="/course/index.php?nav=bulletin&folderID=1"'><a href='/course/index.php?nav=bulletin&folderID=1'>...更多</a></div></div>
+                </div>
+                </div>
+                </div><div class="tabBox dragme colorme hideme fontme rotateme" id=tabBox>
+                <div class=tabBox2>
+                <div class=tabBox3>
+                    <div class=tabHeader>
+                        <div class=title>
+                            校園行事曆 <span class=tool></span>
+                        </div>
+                        <div class=tab>
+                            <div onclick='window.location.href="?tab=6"' class='curr'>
+                        <div class='page1'>
+                        <span>校園行事曆</span>
+                        </div>
+                      </div><div onclick='window.location.href="?tab=8"' class='item'>
+                        <div class='page2'>
+                        <span>課程目錄</span>
+                        </div>
+                      </div><div onclick='window.location.href="?tab=10"' class='item'>
+                        <div class='page3'>
+                        <span>統計資料</span>
+                        </div>
+                      </div>
+                        </div>
+                        <div class=clear></div>
+                    </div>
+                    <div class=tabBody>
+                        <div class=tabBody2>
+                            <div class=tabBody3>
+                                <div class='box calendar' id=calendar>
+                <div class=box2>
+                <div class=box3>
+                    
+                    <div class=boxBody>
+                        <div id=s_calendar><div class=s_mcal><div class='center'>
+                    <span class=em>2013 / 06</span>
+                      <table width=100% class=border>
+                        <tr><td class='center weekres borderLight'>日</td><td class='center weekres borderLight'>一</td><td class='center weekres borderLight'>二</td><td class='center weekres borderLight'>三</td><td class='center weekres borderLight'>四</td><td class='center weekres borderLight'>五</td><td class='center weekres borderLight'>六</td></tr><tr><td class=borderLight></td><td class=borderLight></td><td class=borderLight></td><td class=borderLight></td><td class=borderLight></td><td class=borderLight></td><td id=2013-06-01 class='borderLight weekM center bold pointer normal' onclick='showEvent("2013-06-01")'>1</td></tr><tr><td id=2013-06-02 class='borderLight weekM center ' >2</td><td id=2013-06-03 class='borderLight weekM center ' >3</td><td id=2013-06-04 class='borderLight weekM center bold pointer normal' onclick='showEvent("2013-06-04")'>4</td><td id=2013-06-05 class='borderLight weekM center bold pointer normal' onclick='showEvent("2013-06-05")'>5</td><td id=2013-06-06 class='borderLight weekM center ' >6</td><td id=2013-06-07 class='borderLight weekM center ' >7</td><td id=2013-06-08 class='borderLight weekM center bold pointer normal' onclick='showEvent("2013-06-08")'>8</td></tr><tr><td id=2013-06-09 class='borderLight weekM center ' >9</td><td id=2013-06-10 class='borderLight weekM center ' >10</td><td id=2013-06-11 class='borderLight weekM center ' >11</td><td id=2013-06-12 class='borderLight weekM center bold pointer normal focus' onclick='showEvent("2013-06-12")'>12</td><td id=2013-06-13 class='borderLight weekM center ' >13</td><td id=2013-06-14 class='borderLight weekM center bold pointer normal' onclick='showEvent("2013-06-14")'>14</td><td id=2013-06-15 class='borderLight weekM center ' >15</td></tr><tr><td id=2013-06-16 class='borderLight weekM center ' >16</td><td id=2013-06-17 class='borderLight weekM center bold pointer normal' onclick='showEvent("2013-06-17")'>17</td><td id=2013-06-18 class='borderLight weekM center ' >18</td><td id=2013-06-19 class='borderLight weekM center bold pointer normal' onclick='showEvent("2013-06-19")'>19</td><td id=2013-06-20 class='borderLight weekM center ' >20</td><td id=2013-06-21 class='borderLight weekM center ' >21</td><td id=2013-06-22 class='borderLight weekM center ' >22</td></tr><tr><td id=2013-06-23 class='borderLight weekM center ' >23</td><td id=2013-06-24 class='borderLight weekM center bold pointer normal' onclick='showEvent("2013-06-24")'>24</td><td id=2013-06-25 class='borderLight weekM center ' >25</td><td id=2013-06-26 class='borderLight weekM center ' >26</td><td id=2013-06-27 class='borderLight weekM center ' >27</td><td id=2013-06-28 class='borderLight weekM center ' >28</td><td id=2013-06-29 class='borderLight weekM center ' >29</td></tr><tr><td id=2013-06-30 class='borderLight weekM center ' >30</td><td class=borderLight></td><td class=borderLight></td><td class=borderLight></td><td class=borderLight></td><td class=borderLight></td><td class=borderLight></td></tr>
+            </table></div><p></div><div class=s_info id=info><div class=hidden><span class=em>今日事件 06-12</span><br><span>端午節</span><br></div><p><div id=today class=hidden><span class=em>最近事件</span><br><span><span><span class='light small'>[06-14 ~ 06-18]</span> 102學年度第1學期第2次選課開始(至18日止)</span></span><br><span><span><span class='light small'>[06-17 ~ 06-21]</span> (1)期末考試開始(至21日止)</span></span><br><span><span><span class='light small'>[06-17]</span> (2)101學年度第2學期休學申請截止</span></span><br><span><span><span class='light small'>[06-19]</span> 教師送繳應屆畢業生101學年度第2學期成績截止</span></span><br><span><span><span class='light small'>[06-24]</span> 暑假開始</span></span><br><span><span><span class='light small'>[06-26 ~ 07-05]</span> 暑期班選課及繳費開始(至7月5日止)</span></span><br></div></div><div class=clear></div></div>
+                    </div>
+                    <div class=boxFooter><div class=more onclick='window.location.href="/course/index.php?nav=calendar"'>
+                    <a href='/course/index.php?nav=calendar'>...更多</a>
+                 </div></div>
+                </div>
+                </div>
+                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=tabFooter></div>
+                </div>
+                </div>
+                </div>
+               <div class='box favorite dragme colorme hideme fontme rotateme' id=favorite_130>
+                <div class=box2>
+                <div class=box3>
+                    <div class=boxHeader>常用連結 </div>
+                    <div class=boxBody>
+                    <div class='boxItem odd'><a href='http://www.nthu.edu.tw/' target='_blank'>國立清華大學首頁</a></div><div class='boxItem even'><a href='http://www.lib.nthu.edu.tw/' target='_blank'>圖書館</a></div><div class='boxItem odd'><a href='http://www.cc.nthu.edu.tw/' target='_self'>計算機與通訊中心</a></div><div class='boxItem even'><a href='https://www.ccxp.nthu.edu.tw/ccxp/INQUIRE/' target='_blank'>校務資訊系統</a></div><div class='boxItem odd'><a href='http://ocw.nthu.edu.tw/' target='_blank'>開放式課程OpenCourseWare(NTHU, OCW)</a></div><div class='boxItem even'><a href='http://infonet.et.nthu.edu.tw/' target='_blank'>清華公佈欄</a></div><div class='boxItem odd'><a href='http://www.media.nthu.edu.tw/' target='_blank'>清華影音網</a></div><div class='boxItem even'><a href='http://net.nthu.edu.tw/2009/netip' target='_blank'>網路智慧財產權</a></div><div class='boxItem odd'><a href='http://www.nthu.edu.tw/infopub/ip.php' target='_self'>智慧財產權宣導網站</a></div>
+                    </div>
+                    <div class=boxFooter></div>
+                </div>
+                </div>
+                </div>
+				</div>
+							</div>
+			</div>
+            </div>
+            <div class=clear></div>
+        </div>
+		</div>
+		</div>
+    </div>
+	</div>
+	</div>
+	<div id=copyright >
+	<div id=copyright2>
+	<div id=copyright3 class="dragme colorme hideme fontme rotateme">
+		<div style="text-align: center;" class="dragme colorme hideme fontme rotateme">Copyright&copy;2010-2013 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center;" class="dragme colorme hideme fontme rotateme"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料。</span></div>
+<div style="text-align: center;" class="dragme colorme hideme fontme rotateme"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>    
+	</div>
+	</div>
+	</div>	
+</div>
+</div>
+</div>
+ <div id="dialog-color-txt" title="Color Picker">
+    <p class="validateTips" style='font-size:15px;'>Choose a Color</p>
+    <form>
+      <div>
+        <label class='span2' for="text-color">for text : </label>
+        <input id="text-color" class='color-dialog span1' type="color" value="#000000"/>
+      </div>
+    </form>
+  </div>
+
+  <div id="dialog-color-bg" title="Color Picker">
+    <p class="validateTips" style='font-size:15px;'>Choose a Color</p>
+    <form>
+      <div>
+        <label class='span2'for="background-color">for background : </label>
+        <input id="background-color" class='color-dialog span1' type="color" value="#FFFFFF"/>
+      </div>
+    </form>
+  </div>
+
+  <div id="dialog-word" title="Word Creater">
+    <p class="validateTips" style='font-size:15px;'>What do you wanna say:</p>
+    <input type="text" id="word" />
+  </div>
+
+  <div id="dialog-angle" title="Image Rotater">
+    <p class="validateTips" style='font-size:15px;'>What angle you want it to display:</p>
+    <input type="text" id="angle" />degree
+  </div>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="/static/js/jQueryRotate.2.2.js"></script>
+<script>
+    
+    obj = "empty";
+    reset = 0;
+    resizeflag = 1;
+    dragmeflag = 0;
+    angle = 0;
+
+
+    $(function() {
+
+      setDialog();
+
+      $("#AAA").hide();
+      $("#color-group").hide();
+      $( "button" ).button();
+
+      $( "#save" ).button({
+        text: false,
+        label: 'Save',
+        icons: {
+            primary: "ui-icon-disk"
+        }
+      });
+
+      $('#create').click(function() {
+        //alert( $(" #status ").val("YOYO") );
+        $("#status").val("Enter Word");
+        $( "#dialog-word" ).dialog( "open" );
+      });
+
+    
+      $( "#radio" ).buttonset();
+    
+      $('input[name=radio]').change(function(){
+
+        if (this.id == "radio1"){
+          dragmeflag = 1;
+          if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").hide();
+          $(".dragme" ).draggable( { cursor:"move"} );
+          $("#status").val("Drag you want");
+
+        }else if (this.id == "radio2"){
+          // if (dragmeflag = 1){
+          //     $(".dragme").draggable( "destroy" );
+          //     dragmeflag = 1;
+          // }
+          if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").show();
+          $(".colorme" ).attr('onclick', 'Change(this);');
+
+          if (obj!="empty"){
+            $( "#status" ).val( "Selected" );
+          } else{
+            $( "#status" ).val( "Select an object" );
+          } 
+
+        }else if (this.id == "radio3"){
+          if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").hide();
+          $(".hideme" ).attr('onclick', 'Delete(this);');
+
+          $("#status").val("Click to delete");
+
+        }else if (this.id == "radio4"){
+          if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").show();
+          $("#color-group").hide();
+          $(".fontme" ).attr('onclick', 'Font(this);');
+
+          if (obj!="empty"){
+            $( "#status" ).val( "Selected" );
+          } else{
+            $( "#status" ).val( "Select an object" );
+          } 
+
+        }else if (this.id == "radio5"){
+          if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").hide();
+          $(".rotateme" ).attr('onclick', 'Rotate(this);');
+          
+          if (obj!="empty"){
+            $( "#status" ).val( "Selected" );
+            $( "#dialog-angle" ).dialog( "open" );
+
+          }else{
+            $( "#status" ).val( "Select an object" );
+          } 
+        }
+        
+      });  //end of radio .change
+
+      $(".resizeme").resizable({
+       });
+    });  //end of function() 
+
+
+    function Font(item){
+      alert(item);
+      //alert( parseInt($(item).css('font-size')) );
+      reset = parseInt($(item).css('font-size'));
+      now = reset;  
+      obj = item;
+    };
+
+    $('#jfontsize-m').click(function() {
+      if (obj!="empty" && reset==0){
+        reset = parseInt($(obj).css('font-size'));
+        now = reset;
+      }
+      if (reset != 0 ){
+        now = now-1;
+        $(obj).css('font-size', now);
+      }else {
+        alert("Please select a segment first!");
+      }
+    });
+
+    $('#jfontsize-d').click(function() {
+      if (obj!="empty" && reset==0){
+        reset = parseInt($(obj).css('font-size'));
+        now = reset;
+      }
+      if (reset != 0 ){
+        now=reset;
+        $(obj).css('font-size', now);
+      }else {
+        alert("Please select a segment first!");
+      }
+    });
+
+    $('#jfontsize-p').click(function() {
+      if (obj!="empty" && reset==0){
+        reset = parseInt($(obj).css('font-size'));
+        now = reset;
+      }
+      if (reset != 0 ){
+        now = now+1;
+        $(obj).css('font-size', now);
+      }else {
+        alert("Please select a segment first!");
+      }
+    });
+
+    function Delete(item){
+      //$(item).hide();
+      //$(item).removeAttr('src');
+      $(item).remove();
+    };
+
+    function Change(item){
+      //$( "#dialog-color" ).dialog( "open" );
+      //alert(obj);
+      obj = item;
+      reset = 0;
+      alert(obj);
+    };
+
+    $('#color-txt').click(function() {
+      if (obj!="empty"){
+        $("#status").val("Change text color");
+        $( "#dialog-color-txt" ).dialog( "open" );
+      } else{
+        alert("Please select a segment first!");
+      } 
+    });
+
+    $('#color-bg').click(function() {
+      if (obj!="empty"){
+        $("#status").val("Change bg color");
+        $( "#dialog-color-bg" ).dialog( "open" );
+      } else{
+        alert("Please select a segment first!");
+      } 
+    });
+
+    function Rotate(item){
+      obj = item;
+      reset = 0;
+      alert(obj);
+      //$(obj).rotate( {angle: 30} );
+      $("#status").val("Rotating");
+      $( "#dialog-angle" ).dialog( "open" );
+    }
+
+    function rgb2hex(rgbString){
+      //alert(rgbString);
+      var parts = rgbString.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+      // parts now should be ["rgb(0, 70, 255", "0", "70", "255"]
+      delete (parts[0]);
+      for (var i = 1; i <= 3; ++i) {
+        parts[i] = parseInt(parts[i]).toString(16);
+        if (parts[i].length == 1) parts[i] = '0' + parts[i];
+      } 
+      var hexString ='#'+parts.join('').toUpperCase(); // "#0070FF"
+      return hexString
+    };
+
+    function setDialog(){
+      //var quest = $( "#quest" );
+      $( "#dialog-color-txt" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+          duration: 1500
+        },
+        hide: {
+          effect: "explode",
+          duration: 500
+        },
+        buttons: {
+          "OK": function() {
+            //var chosen_color = document.getElementById('background-color').value;
+            var chosen_color_txt = $('#text-color').val();
+            $(obj).css('color', chosen_color_txt);
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          }
+        },
+        close: function() {
+            $("#status").val("Selected");
+          //quest.val( "" ).removeClass( "ui-state-error" );
+        }
+      });
+
+      $( "#dialog-color-bg" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+          duration: 1500
+        },
+        hide: {
+          effect: "explode",
+          duration: 500
+        },
+        buttons: {
+          "OK": function() {
+            var chosen_color_bg = $('#background-color').val();
+            $(obj).css('background-color', chosen_color_bg);
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          }
+        },
+        close: function() {
+            $("#status").val("Selected");
+          //quest.val( "" ).removeClass( "ui-state-error" );
+        }
+      });
+
+      $( "#dialog-word" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+          duration: 1500
+        },
+        hide: {
+          effect: "explode",
+          duration: 500
+        },
+        buttons: {
+          "OK": function() {
+            $("body").append('<div class="fontme dragme colorme hideme rotateme" style="display:inline-block;">'+$('#word').val()+'</div>'); 
+            $( this ).dialog( "close" );
+            $("#status").val("None");
+            //alert( $('#word').val() );
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            $("#status").val("None");
+          }
+        },
+        close: function() {
+          $("#status").val("None");
+        }
+      });
+
+      $( "#dialog-angle" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+          duration: 1500
+        },
+        hide: {
+          effect: "explode",
+          duration: 500
+        },
+        buttons: {
+          "OK": function() {
+            //alert(value);
+            //alert($("#angle").val());
+            //alert(obj);
+            $(obj).rotate( {angle: parseInt($("#angle").val())} );
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+            //alert( $('#word').val() );
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          }
+        },
+        close: function() {
+          $("#status").val("Selected");
+        }
+      });
+
+    };  // end of setDialog();
+    
+    $('#resizify').click(function(){
+        resizeflag = 1;
+        $(".resizeme").resizable({
+            /*handles:"all",            //定义可变化大小的方向,可选值"n, e, s, w, ne, se, sw, nw","all"代表全部
+            //helper:"proxy",
+            aspectRatio: true,        //是否同步向x,y变化大小，也就是按照原有的比例缩放 默认是false
+           autoHide: true,          //是否自动隐藏变化控制器
+            transparent: false,
+            grid: [10, 10],            //定义x,y轴两个方向的变化步进,单位px
+            animate: true,           //定义延迟是否变化大小
+            animateDuration: "slow", //变化速度
+           animateEasing: "swing",
+           ghost: true,             //是否显示变化影子,利用此属性可以较为精确定位 (估计这比较难理解，尝试改变属性值就清楚了)
+           start:function(e,ui){$(this).append("Start!");},  //定义开始变化大小时执行的函数
+           resize:function(e,ui){},                          //定义在变化大小时执行的函数
+           stop:function(e,ui){$(this).append("Stop!");}    //与start相反
+           //draggable() 是使一个对象具有拖动的功能?*/
+       });
+    });
+    $('.container').css('width', $('#toolbar').width() - 100 );
+    //alert($(window).height())
+    $('.container').css('height', $(window).height() - 25);
+
+    $(window).resize(function() {
+      $('.container').css('width', $('#toolbar').width() - 100 );
+      $('.container').css('height', $(window).height() - 25);
+    });
+</script>
+</body>
+</html>''

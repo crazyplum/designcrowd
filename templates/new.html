@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <title>Homepage</title>
+  <script src="/static/js/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="/static/js/save.js"></script>
+  <!--
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/redmond/jquery-ui.css" /> -->
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/blitzer/jquery-ui.css" />
+  <!--<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+  <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">-->
+  <style>
+    .ui-dialog-title{
+      font-size: 17px;
+	}
+
+	.color-dialog{
+      width:100px;
+	}
+
+	#toolbar {
+	  top: 0px;
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+      font-size: 12px;
+	}
+
+    .container{
+      margin-top:100px;
+      margin-left: 50px;
+    }
+
+    #save{
+      margin-left: 50px;
+    }
+
+    #angle{
+      width: 35px;
+    }
+
+    body { 
+      background-image:url('/static/images/gray-white.jpg');
+      background-repeat: repeat;
+      background-position: 0 0;
+      background-attachment: fixed;
+	}
+
+  </style>
+
+</head>
+
+<body>	
+  <div id="fb-root"></div>
+  <script>
+    // Load the SDK asynchronously
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    
+    window.fbAsyncInit = function() {
+      // init the FB JS SDK
+      FB.init({
+        appId      : '179519402197498',                      // App ID from the app dashboard
+        channelUrl : '',                   // Channel file for x-domain comms
+        status     : true,                                   // Check Facebook Login status
+        xfbml      : true,                                   // Look for social plugins on the page
+        cookie     : true
+      });
+        jQuery(document).trigger('FBSDKLoaded');
+    	console.log('finished loading facebook');
+    };
+
+  </script>
+  <div id="toolbar" class="ui-widget-header ui-corner-all">
+    <button id="save">Save</button>
+    <button id="create">Say Something!</button>
+    <button id="resizify">Resize!</button>
+    <span id="radio">
+      <input type="radio" id="radio1" name="radio" /><label for="radio1">Drag&Drop</label>
+      <input type="radio" id="radio2" name="radio" /><label for="radio2">Change Color</label>
+      <input type="radio" id="radio3" name="radio" /><label for="radio3">Delete</label>
+      <input type="radio" id="radio4" name="radio" /><label for="radio4">Font Resizer</label>
+      <input type="radio" id="radio5" name="radio" /><label for="radio5">Image Rotater</label>
+    </span>
+    <input  type="text" id="status" value="None"/>
+    <span id="AAA">
+      <button class="jfontsize-button" id="jfontsize-m">A-</button>
+      <button class="jfontsize-button" id="jfontsize-d">A</button>
+      <button class="jfontsize-button" id="jfontsize-p">A+</button>
+    </span>
+    <span id="color-group">
+      <button id="color-txt">Text Color</button>
+      <button id="color-bg">Background Color</button>
+    </span>
+  </div> <!--end toolbar-->
+
+  <div class='container'>
+  	<img id="img1" class="resizeme dragme hideme rotateme" src="/static/images/nine/SsGndq4.gif">
+  	<img class="resizeme dragme hideme rotateme" src="/static/images/nine/KkvKojp.jpg">
+  	<img class="resizeme dragme hideme rotateme" src="/static/images/nine/phpAfzVtl.jpg">
+  	<img class="resizeme dragme hideme rotateme" src="/static/images/nine/c0274664.jpg">
+  	<img class="resizeme dragme hideme rotateme" src="/static/images/nine/769_468527583236791_1171741974_n.jpg">
+  	<img class="resizeme dragme hideme rotateme" src="/static/images/nine/6805_469467173126958_881185334_n.jpg">
+  	<img class="resizeme dragme hideme rotateme" src="/static/images/nine/PbkZJEV.jpg">
+  	<img class="resizeme dragme hideme rotateme" src="/static/images/nine/xQBmDML.jpg">
+  	<img class="resizeme dragme hideme rotateme" src="/static/images/nine/Nix5m0j.jpg">
+  	<img class="resizeme dragme hideme rotateme" src="/static/images/nine/H7CuHVvt.jpg">
+  </div>
+
+  <div id="dialog-color-txt" title="Color Picker">
+    <p class="validateTips" style='font-size:15px;'>Choose a Color</p>
+    <form>
+      <div>
+        <label class='span2' for="text-color">for text : </label>
+        <input id="text-color" class='color-dialog span1' type="color" value="#000000"/>
+      </div>
+    </form>
+  </div>
+
+  <div id="dialog-color-bg" title="Color Picker">
+    <p class="validateTips" style='font-size:15px;'>Choose a Color</p>
+    <form>
+      <div>
+        <label class='span2'for="background-color">for background : </label>
+        <input id="background-color" class='color-dialog span1' type="color" value="#FFFFFF"/>
+      </div>
+    </form>
+  </div>
+
+  <div id="dialog-word" title="Word Creater">
+    <p class="validateTips" style='font-size:15px;'>What do you wanna say:</p>
+    <input type="text" id="word" />
+  </div>
+
+  <div id="dialog-angle" title="Image Rotater">
+    <p class="validateTips" style='font-size:15px;'>What angle you want it to display:</p>
+    <input type="text" id="angle" />degree
+  </div>
+
+<!--  ===============================================================  -->
+<!--<script src="/static/js/jquery-ui-1.10.3.custom.js"></script>-->
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!--<script src="/static/js/jquery.jfontsize-1.0.js"></script>-->
+<!--<script src="/static/js/bootstrap.js"></script>-->
+<script src="/static/js/jQueryRotate.2.2.js"></script>
+<script>
+    obj = "empty";
+    reset = 0;
+    resizeflag = 1;
+    dragmeflag = 0;
+    angle = 0;
+
+
+    $(function() {
+
+      setDialog();
+
+      $("#AAA").hide();
+      $("#color-group").hide();
+      $( "button" ).button();
+
+      $( "#save" ).button({
+        text: false,
+        label: 'Save',
+	    icons: {
+	    	primary: "ui-icon-disk"
+	    }
+      });
+
+      $('#create').click(function() {
+        $("#status").val("Enter Word");
+        $( "#dialog-word" ).dialog( "open" );
+      });
+
+    
+      $( "#radio" ).buttonset();
+    
+      $('input[name=radio]').change(function(){
+
+        if (this.id == "radio1"){
+          dragmeflag = 1;
+          if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").hide();
+          $(".dragme" ).draggable( { cursor:"move"} );
+          $("#status").val("Drag you want");
+
+    	}else if (this.id == "radio2"){
+    	  // if (dragmeflag = 1){
+    	  // 	 $(".dragme").draggable( "destroy" );
+    	  // 	 dragmeflag = 1;
+    	  // }
+    	  if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").show();
+          $(".colorme" ).attr('onclick', 'Change(this);');
+
+          if (obj!="empty"){
+            $( "#status" ).val( "Selected" );
+          } else{
+            $( "#status" ).val( "Select an object" );
+          } 
+
+    	}else if (this.id == "radio3"){
+    	  if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").hide();
+          $(".hideme" ).attr('onclick', 'Delete(this);');
+
+          $("#status").val("Click to delete");
+
+    	}else if (this.id == "radio4"){
+    	  if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").show();
+          $("#color-group").hide();
+          $(".fontme" ).attr('onclick', 'Font(this);');
+
+          if (obj!="empty"){
+            $( "#status" ).val( "Selected" );
+          } else{
+            $( "#status" ).val( "Select an object" );
+          } 
+
+    	}else if (this.id == "radio5"){
+    	  if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").hide();
+          $(".rotateme" ).attr('onclick', 'Rotate(this);');
+          if (obj!="empty"){
+	        $( "#dialog-angle" ).dialog( "open" );
+
+           if (obj!="empty"){
+            $( "#status" ).val( "Selected" );
+            $( "#dialog-angle" ).dialog( "open" );
+
+          }else{
+            $( "#status" ).val( "Select an object" );
+          }
+	      }
+    	}
+        
+      });  //end of radio .change
+
+      $(".resizeme").resizable({
+       });
+    });  //end of function() 
+
+
+    function Font(item){
+      alert(item);
+      //alert( parseInt($(item).css('font-size')) );
+      reset = parseInt($(item).css('font-size'));
+      now = reset;	
+      obj = item;
+	};
+
+	$('#jfontsize-m').click(function() {
+	  if (obj!="empty" && reset==0){
+        reset = parseInt($(obj).css('font-size'));
+        now = reset;
+	  }
+      if (reset != 0 ){
+        now = now-1;
+        $(obj).css('font-size', now);
+      }else {
+        alert("Please select a segment first!");
+      }
+    });
+
+    $('#jfontsize-d').click(function() {
+      if (obj!="empty" && reset==0){
+        reset = parseInt($(obj).css('font-size'));
+        now = reset;
+	  }
+      if (reset != 0 ){
+        now=reset;
+        $(obj).css('font-size', now);
+      }else {
+        alert("Please select a segment first!");
+      }
+    });
+
+    $('#jfontsize-p').click(function() {
+      if (obj!="empty" && reset==0){
+        reset = parseInt($(obj).css('font-size'));
+        now = reset;
+	  }
+      if (reset != 0 ){
+        now = now+1;
+        $(obj).css('font-size', now);
+      }else {
+        alert("Please select a segment first!");
+      }
+	});
+
+    function Delete(item){
+      //$(item).hide();
+      //$(item).removeAttr('src');
+      $(item).remove();
+	};
+
+    function Change(item){
+      //$( "#dialog-color" ).dialog( "open" );
+      //alert(obj);
+      obj = item;
+      reset = 0;
+      alert(obj);
+	};
+
+	$('#color-txt').click(function() {
+	  if (obj!="empty"){
+      $("#status").val("Change text color");
+	    $( "#dialog-color-txt" ).dialog( "open" );
+	  } else{
+	  	alert("Please select a segment first!");
+	  } 
+	});
+
+	$('#color-bg').click(function() {
+      if (obj!="empty"){
+        $("#status").val("Change bg color");
+  	    $( "#dialog-color-bg" ).dialog( "open" );
+  	  } else{
+  	  	alert("Please select a segment first!");
+  	  } 
+	});
+
+	function Rotate(item){
+	  obj = item;
+      reset = 0;
+      alert(obj);
+      //$(obj).rotate( {angle: 30} );
+      $("#status").val("Rotating");
+      $( "#dialog-angle" ).dialog( "open" );
+	}
+
+	function rgb2hex(rgbString){
+      //alert(rgbString);
+      var parts = rgbString.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+      // parts now should be ["rgb(0, 70, 255", "0", "70", "255"]
+      delete (parts[0]);
+      for (var i = 1; i <= 3; ++i) {
+        parts[i] = parseInt(parts[i]).toString(16);
+        if (parts[i].length == 1) parts[i] = '0' + parts[i];
+      } 
+      var hexString ='#'+parts.join('').toUpperCase(); // "#0070FF"
+      return hexString
+	};
+
+    function setDialog(){
+      //var quest = $( "#quest" );
+      $( "#dialog-color-txt" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+		  duration: 1500
+		},
+		hide: {
+		  effect: "explode",
+		  duration: 500
+		},
+		buttons: {
+		  "OK": function() {
+            //var chosen_color = document.getElementById('background-color').value;
+            var chosen_color_txt = $('#text-color').val();
+            $(obj).css('color', chosen_color_txt);
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          },
+          Cancel: function() {
+          	$( this ).dialog( "close" );
+          }
+        },
+        close: function() {
+          $("#status").val("Selected");
+          //quest.val( "" ).removeClass( "ui-state-error" );
+        }
+      });
+
+      $( "#dialog-color-bg" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+		  duration: 1500
+		},
+		hide: {
+		  effect: "explode",
+		  duration: 500
+		},
+		buttons: {
+		  "OK": function() {
+            var chosen_color_bg = $('#background-color').val();
+            $(obj).css('background-color', chosen_color_bg);
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          },
+          Cancel: function() {
+          	$( this ).dialog( "close" );
+            $("#status").val("Selected");
+          }
+        },
+        close: function() {
+          $("#status").val("Selected");
+          //quest.val( "" ).removeClass( "ui-state-error" );
+        }
+      });
+
+      $( "#dialog-word" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+		  duration: 1500
+		},
+		hide: {
+		  effect: "explode",
+		  duration: 500
+		},
+		buttons: {
+		  "OK": function() {
+		    $(".container").prepend('<div class="fontme dragme colorme hideme rotateme" style="display:inline-block;">'+$('#word').val()+'</div>');
+		    $( this ).dialog( "close" );
+        $("#status").val("None");
+		    //alert( $('#word').val() );
+          },
+          Cancel: function() {
+          	$( this ).dialog( "close" );
+            $("#status").val("None");
+          }
+        },
+        close: function() {
+          $("#status").val("None");
+        }
+      });
+
+      $( "#dialog-angle" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+		  duration: 1500
+		},
+		hide: {
+		  effect: "explode",
+		  duration: 500
+		},
+		buttons: {
+		  "OK": function() {
+		  	//alert(value);
+		  	//alert($("#angle").val());
+		  	//alert(obj);
+			$(obj).rotate( {angle: parseInt($("#angle").val())} );
+		    $( this ).dialog( "close" );
+		    //alert( $('#word').val() );
+          },
+          Cancel: function() {
+          	$( this ).dialog( "close" );
+          }
+        },
+        close: function() {
+          
+        }
+      });
+
+	};  // end of setDialog();
+    
+    $('#resizify').click(function(){
+    	resizeflag = 1;
+		$(".resizeme").resizable({
+            /*handles:"all",            //定义可变化大小的方向,可选值"n, e, s, w, ne, se, sw, nw","all"代表全部
+            //helper:"proxy",
+            aspectRatio: true,        //是否同步向x,y变化大小，也就是按照原有的比例缩放 默认是false
+           autoHide: true,          //是否自动隐藏变化控制器
+            transparent: false,
+            grid: [10, 10],            //定义x,y轴两个方向的变化步进,单位px
+            animate: true,           //定义延迟是否变化大小
+            animateDuration: "slow", //变化速度
+           animateEasing: "swing",
+           ghost: true,             //是否显示变化影子,利用此属性可以较为精确定位 (估计这比较难理解，尝试改变属性值就清楚了)
+           start:function(e,ui){$(this).append("Start!");},  //定义开始变化大小时执行的函数
+           resize:function(e,ui){},                          //定义在变化大小时执行的函数
+           stop:function(e,ui){$(this).append("Stop!");}    //与start相反
+           //draggable() 是使一个对象具有拖动的功能?*/
+       });
+	});
+
+	// var value = 0
+	// $("#img1").rotate({ 
+	//    bind: 
+	//      { 
+	//         click: function(){
+	//             value +=90;
+	//             $(this).rotate({ animateTo:value})
+	//         }
+	//      }
+	// });
+
+    $('.container').css('width', $('#toolbar').width() - 100 );
+    //alert($(window).height())
+    $('.container').css('height', $(window).height() - 25);
+
+	$(window).resize(function() {
+      $('.container').css('width', $('#toolbar').width() - 100 );
+      $('.container').css('height', $(window).height() - 25);
+	});
+</script>
+</body>
+</html>

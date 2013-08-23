@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Design/Crowd</title>
+	<!--
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/redmond/jquery-ui.css" /> -->
+	<link href="/static/css/bootstrap.css" rel="stylesheet">
+	<link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+	<style>
+	#search-bar{
+		margin-top: 111px;
+	}
+
+	#search-query{
+		height: 40px;
+	}
+
+	.nav {
+    	font-size: 17px;
+    }
+
+    #content-wrapper{
+    	background-color: white;
+    	-moz-border-radius: 10px;
+  		border-radius: 10px;
+    }
+
+    #intro-title{
+    	color: #5a5a5a;
+    }
+
+	#above {
+		/*background-image:url('/static/images/body-pattern.gif');*/
+		background: #efece6;
+		background-repeat: repeat;
+		background-position: 0 0;
+		background-attachment: fixed;
+	}
+
+	#img2{
+		height:187px;
+	}
+	#img3{
+		height:187px;
+	}
+
+	.footer {
+		text-align: center;
+		padding: 30px 0;
+		margin-top: 70px;
+		border-top: 1px solid #e5e5e5;
+		background-color: #f5f5f5;
+	}
+	.footer p {
+		margin-bottom: 0;
+		color: #777;
+	}
+
+	.marketing {
+		text-align: center;
+		color: #5a5a5a;
+	}
+
+	.fb-like {
+		margin-top: 7px;
+	}
+
+	#carousel{
+		width: 95%;
+		margin: 0 auto 0 auto;
+		display: block;
+	}
+
+	</style>
+</head>
+
+<body>
+	<div id="fb-root"></div>
+	<script>
+		// Load the SDK asynchronously
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		
+		window.fbAsyncInit = function() {
+			// init the FB JS SDK
+			FB.init({
+				appId      : '179519402197498',                      // App ID from the app dashboard
+				channelUrl : '', 									 // Channel file for x-domain comms
+				status     : true,                                   // Check Facebook Login status
+				xfbml      : true,                                   // Look for social plugins on the page
+				cookie	   : true
+			});
+		
+			// Additional initialization code such as adding Event Listeners goes here
+			FB.getLoginStatus(function(response) {
+				if (response.status === 'connected') {
+					//alert('connected');
+					var access_token = response.authResponse.accessToken;
+					console.log(access_token);
+					
+					FB.api('/me', function(response) {
+						console.log(response);
+						$('#method').html('<img id="profile_picture" src="https://graph.facebook.com/'+response.id+'/picture" width="24"/> Log out' );
+						$('#method').attr('onclick', 'logout();');
+					});
+					//facebookLoginCallback();
+				} else if (response.status === 'not_authorized') {
+					//alert('not_authorized, plz relogin');
+					//login();
+				} else {
+					//alert('not login, plz login');
+					//login();
+				}
+			});
+		};	
+	</script>
+
+<div id="above">
+	<br>
+	<!-- NAVBAR
+	================================================== -->
+	<div class="navbar-wrapper">
+		<!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+		<div class="container">
+			<div class="navbar navbar-inverse">
+				<div class="navbar-inner">
+					<!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="#"><img src="/static/images/logo3.png" width="130" height="20"/></a></a>
+					<!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+					<div class="nav-collapse collapse">
+						<ul class="nav">
+							<li class="active"><a href="/">Home</a></li>
+							<li><a href="/get_started">Get Started</a></li>
+							<li><a href="mailto:crazyplum24@gmail.com">Contact</a></li>
+            				<!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Exhibit <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="/resultpage/ilms">NTHU ILMS</a></li>
+									<li><a href="/resultpage/new">Mr.President</a></li>
+									<li><a href="/resultpage/deluxe_templates">Deluxe Templates</a></li>
+								</ul>
+							</li>
+						</ul>
+						<ul class="nav pull-right">
+
+							<li><a id='method' onclick="login();"><img id='profile_picture' /><i class="icon-user icon-white"></i> Sign In</a></li>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div><!-- /.navbar-inner -->
+			</div><!-- /.navbar -->
+		</div> <!-- /.container -->
+	</div><!-- /.navbar-wrapper -->
+	
+	
+		<div class="container" id="top">
+			<img class="img-rounded" id="carousel" src="/static/images/slogan.png">
+
+			<div class="fb-like" data-href="http://csclab12.cs.nthu.edu.tw" data-send="false" data-width="450" data-show-faces="true" data-font="arial"></div>
+		</div>
+		<hr class="soften">
+
+		
+
+</div>	
+	<div class="container" id="content-wrapper">
+		<h1 class="text-center" id="intro-title">Introducing Design/Crowd</h1>
+		<br>
+		<div class="row-fluid">
+      <div class="span4 marketing">
+        <img src="/static/images/crowdsourcing1a.png" width="250">
+        <h2>By everyone</h2>
+        <p>Expect to generate a web pages that most people think is "GOOD" 
+            by crowdsourcing! Give the 
+        	modified webpage a like, comment on it or modify it directly 
+        	so that it will become more and more acceptable to people. </p>
+      </div>
+      <div class="span4 marketing">
+        <img id="img2" class="marketing-img" src="/static/images/pages.png" width="250">
+        <h2>For web pages</h2>
+        <p>Plugin function like Google Chrome Extension that compatible 
+        	to lots of web pages. As long as you think the webpage is too "ugly" or too "uncomfortable" 
+        	to use,  you can modify it by using Desgin/Crowd service.</p>
+
+      </div>
+      <div class="span4 marketing">
+        <img id="img3" class="marketing-img" src="/static/images/dragndrop.jpg" width="250">
+        <h2>WYSIWYG</h2>
+        <p>Just move your mouse around and do some clicks.
+		   You can modify the layout of the webpage painlessly, and make it more beautiful of convenient.
+        	 Fulfill the feature --- What You See Is What You Get.</p>
+      </div>
+    </div>
+	</div>
+
+	<footer class="footer">
+      <div class="container">
+      	<p>2013 NTHU Social Computing Application Design</p>
+        <p>Designed and built with all the love in the world by <a href="https://www.facebook.com/crazyplum" target="_blank">@Mei-Hua Pan</a> and <a href="https://www.facebook.com/profile.php?id=100001535559485" target="_blank">@Kai-Hsiang Hsu </a>.</p>
+      </div>
+    </footer>
+	
+
+	<!-- Le javascript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+	<script src="/static/js/bootstrap.js"></script>
+	<script>
+		function login(){
+			FB.login(function(response) {
+				if (response.authResponse) {
+					console.log('Welcome!  Fetching your information.... ');
+					//$('#search').removeAttr('disabled');
+					FB.api('/me', function(response) {
+  						console.log(response);
+  						//$('#profile_picture').attr('src', 'https://graph.facebook.com/'+response.id+'/picture');
+  						//$('#profile_picture').attr('width', '22')
+  						//$('.icon-user').removeAttr('class');
+  						$('#method').html('<img id="profile_picture" src="https://graph.facebook.com/'+response.id+'/picture" width="24"/> Log out' );
+  						$('#method').attr('onclick', 'logout();');
+  						//$('#profile_picture').attr('alt', response.name)
+  						//https://graph.facebook.com/<user-id-or-username>/picture
+					});
+				} else {
+					console.log('User cancelled login or did not fully authorize.');
+				}
+			}, {scope:'read_stream,publish_stream,offline_access,email'});
+		}
+
+		function logout(){
+			FB.logout(function(response) {
+				alert("GOODBYE~~");
+				//Do what ever you want here when logged out like reloading the page
+				window.location.assign("http://csclab12.cs.nthu.edu.tw/");
+			});
+		}
+	</script>
+	<script>
+		$(window).resize(function() {
+			$('#carousel').attr('width', $('#top').width() );
+			$('#carousel').attr('height', $('#top').height() );
+		});
+	</script>
+</body>
+</html>

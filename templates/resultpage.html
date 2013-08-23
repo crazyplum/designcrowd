@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Exhibit · Design/Crowd</title>
+	<!--
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/redmond/jquery-ui.css" /> -->
+	<link href="/static/css/bootstrap.css" rel="stylesheet">
+	<link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+
+	<link href="https://dl.dropboxusercontent.com/u/65282618/anythingzoomer.css" rel="stylesheet" >
+
+	<style>
+	.nav {
+    	font-size: 17px;
+    }
+
+	body { 
+		background: #efece6;
+		background-repeat: repeat;
+		background-position: 0 0;
+		background-attachment: fixed;
+	}
+	.title{
+		font-size:20px;
+	}
+
+	#result{
+      margin-top:10px;
+    }
+
+	.footer {
+		margin-top: 70px;
+		text-align: center;
+		padding: 30px 0;
+		border-top: 1px solid #e5e5e5;
+		background-color: #f5f5f5;
+	}
+	.footer p {
+		margin-bottom: 0;
+		color: #777;
+	}
+
+	.span4 {
+		text-align: center;
+		margin-top: 45px;
+	}
+
+	.select {
+      border-style:solid;
+      border-width:9px;
+      border-color:red;  
+  	}
+
+	</style>
+</head>
+
+<body>
+	<div id="fb-root"></div>
+	<script>
+		// Load the SDK asynchronously
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		
+		window.fbAsyncInit = function() {
+			// init the FB JS SDK
+			FB.init({
+				appId      : '179519402197498',                      // App ID from the app dashboard
+				channelUrl : '', 									 // Channel file for x-domain comms
+				status     : true,                                   // Check Facebook Login status
+				xfbml      : true,                                   // Look for social plugins on the page
+				cookie	   : true
+			});
+		
+			// Additional initialization code such as adding Event Listeners goes here
+			FB.getLoginStatus(function(response) {
+				if (response.status === 'connected') {
+					//alert('connected');
+					var access_token = response.authResponse.accessToken;
+					console.log(access_token);
+					
+					FB.api('/me', function(response) {
+						console.log(response);
+						$('#method').html('<img id="profile_picture" src="https://graph.facebook.com/'+response.id+'/picture" width="24"/> Log out' );
+						$('#method').attr('onclick', 'logout();');
+					});
+					//facebookLoginCallback();
+				} else if (response.status === 'not_authorized') {
+					//alert('not_authorized, plz relogin');
+					//login();
+				} else {
+					//alert('not login, plz login');
+					//login();
+				}
+			});
+
+			FB.Event.subscribe('edge.create',
+			    function(response) {
+			        alert('You liked the URL: ' + response);
+			    }
+			);
+		};	
+	</script>
+
+	<br>
+	<!-- NAVBAR
+	================================================== -->
+	<div class="navbar-wrapper">
+		<!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+		<div class="container">
+			<div class="navbar navbar-inverse">
+				<div class="navbar-inner">
+					<!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="#"><img src="/static/images/logo3.png" width="130" height="20"/></a></a>
+					<!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+					<div class="nav-collapse collapse">
+						<ul class="nav">
+							<li><a href="/">Home</a></li>
+							<li><a href="/get_started">Get Started</a></li>
+							<li><a href="mailto:crazyplum24@gmail.com">Contact</a></li>
+            				<!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
+							<li class="dropdown active">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Exhibit <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="/resultpage/ilms">NTHU ILMS</a></li>
+									<li><a href="/resultpage/new">Mr.President</a></li>
+									<li><a href="/resultpage/deluxe_templates">Deluxe Templates</a></li>
+								</ul>
+							</li>
+						</ul>
+						<ul class="nav pull-right">
+
+							<li><a id='method' onclick="login();"><img id='profile_picture' /><i class="icon-user icon-white"></i> Sign In</a></li>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div><!-- /.navbar-inner -->
+			</div><!-- /.navbar -->
+		</div> <!-- /.container -->
+	</div><!-- /.navbar-wrapper -->
+
+
+
+
+	<div class="container" id="result">
+		<div class ="title" id="{{filename}}"> Templates for {{ filename }} </div>		
+	</div>
+
+
+	<footer class="footer">
+      <div class="container">
+      	<p>2013 NTHU Social Computing Application Design</p>
+        <p>Designed and built with all the love in the world by <a href="https://www.facebook.com/crazyplum" target="_blank">@Mei-Hua Pan</a> and <a href="https://www.facebook.com/profile.php?id=100001535559485" target="_blank">@Kai-Hsiang Hsu </a>.</p>
+      </div>
+    </footer>
+
+	<!-- Le javascript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+	<script src="/static/js/bootstrap.js"></script>
+	<script>
+		function login(){
+			FB.login(function(response) {
+				if (response.authResponse) {
+					console.log('Welcome!  Fetching your information.... ');
+					//$('#search').removeAttr('disabled');
+					FB.api('/me', function(response) {
+  						//console.log(response);
+  						//$('#profile_picture').attr('src', 'https://graph.facebook.com/'+response.id+'/picture');
+  						//$('#profile_picture').attr('width', '22')
+  						//$('.icon-user').removeAttr('class');
+  						$('#method').html('<img id="profile_picture" src="https://graph.facebook.com/'+response.id+'/picture" width="24"/> Log out' );
+  						$('#method').attr('onclick', 'logout();');
+  						//$('#profile_picture').attr('alt', response.name)
+  						//https://graph.facebook.com/<user-id-or-username>/picture
+					});
+				} else {
+					console.log('User cancelled login or did not fully authorize.');
+				}
+			}, {scope:'read_stream,publish_stream,offline_access,email'});
+		}
+
+		function logout(){
+			FB.logout(function(response) {
+				alert("GOODBYE~~");
+				//Do what ever you want here when logged out like reloading the page
+				window.location.assign("http://csclab12.cs.nthu.edu.tw/");
+			});
+		}
+	</script>
+
+	<script src="https://dl.dropboxusercontent.com/u/65282618/jquery.anythingzoomer.js"></script>
+
+	<script src="/static/js/showresult.js"></script>
+	<script>
+		// $('#result').css('height', $(window).height() - 240 );
+
+		// $(window).resize(function() {
+		// 	//$('#main').attr('width', $('.container').width() );
+		// 	$('#result').css('height', $(window).height() - 240);
+		// });
+	$('.az-wrap-inner').css({'height':'auto'});
+	</script>
+	
+</body>
+</html>

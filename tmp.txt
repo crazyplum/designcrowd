@@ -1,0 +1,29 @@
+thub.GitBlob.GitBlob object at 0x9733e4c>
+>>> blob = repo.create_git_blob(content, 'utf-8')
+>>> blob.content
+>>> print blob.contnet
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'GitBlob' object has no attribute 'contnet'
+>>> print blob.content
+None
+>>> tmp = InputGitTreeElement('test.txt', 'edit', 'blob', blob.sha)
+>>> new_tree = repo.create_git_tree([tmp], base_tree=base_commit.commit.tree)
+>>> commit = repo.create_git_commit('third commit', new_tree, [base_commit.commit])
+>>> master.edit(commit.sha, force=True)
+>>> commit.sha
+u'ad04df2b221d6b0dfb5bad91eb88839ae94e94e8'
+>>> content
+'test!!!\n'
+>>> master
+<github.GitRef.GitRef object at 0x96cf1ec>
+>>> master.object.commit
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'GitObject' object has no attribute 'commit'
+>>> base_commit = repo.get_commit(master.object.sha)
+
+>>> 
+>>> base_commit
+<github.Commit.Commit object at 0x96d712c>
+

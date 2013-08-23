@@ -1,0 +1,1064 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9; requiresActiveX=true">
+<meta name="keywords" content="">
+<meta name="description" content="國立清華大學 iLMS數位學習平台">
+<title>國立清華大學 iLMS數位學習平台</title>
+<style>@import URL("/static/ilms/css/dom.css");</style>
+<style>@import URL("/static/ilms/css/style.css");</style>
+<style>@import URL("/static/ilms/css/form.css");</style>
+<style>@import URL('/static/ilms/css/highslide.css');</style>
+<script id="facebook-jssdk" src="//connect.facebook.net/en_US/all.js"></script><script src="/static/ilms/js/dom.js"></script>
+<script src="/static/ilms/js/lib.js"></script>
+<script src="/static/ilms/js/calendar.js"></script>
+<script src="/static/ilms/js/active_control.js"></script>
+<script src="/static/ilms/js/charts.js"></script>
+<script src="/static/js/jquery-1.9.1.js"></script>
+<script src="/static/js/save.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/blitzer/jquery-ui.css">
+<script src="/static/ilms/js/highslide-with-html.js"></script>
+<script>
+    function insertBulletin()
+    {
+        $showModal('新增', '/sys/adm/bulletin_insert.php?modal=1&folderID=1', 800, 475, onCloseModal);
+    }
+    function onCloseModal()
+    {
+        if ($modalarg && $modalarg.status == "true")
+        {
+            window.location.reload();
+            return ;
+        }
+
+        $closeModal();
+    }
+    function onReload()
+    {
+        window.location.reload();
+    }
+    function init()
+    {
+        showChartList();
+    }
+    function menuPopup(src, id)
+    {
+        var display;
+        var obj = src.parentNode;
+        if (obj.getElementsByTagName('ul')[0])
+        {
+            display = obj.getElementsByTagName('ul')[0].style.display;
+            if ("1" == "1")
+            {
+                var ids = $getCookie("cookie_menu_0");
+                if (display == "block")
+                {
+                    if (ids.indexOf("," + id + ",",0) >= 0)
+                    {
+                        ids = ids.replace("," + id + ",", ",");
+                        $setCookie("cookie_menu_0", ids, 0);
+                    }
+                }
+                else
+                {
+                    if (ids.indexOf("," + id + ",",0) < 0)
+                    {
+                        ids = (ids == "") ? "," + id + "," : ids + id + ",";
+                        $setCookie("cookie_menu_0", ids, 0);
+                    }
+                }
+            }
+            obj.getElementsByTagName('ul')[0].style.display = (display == "block") ? "none" : "block";
+        }
+    }
+    function menuPopup2(obj, display)
+    {
+        display = (display == 1) ? "block" : "none";
+        if (obj.getElementsByTagName('ul')[0])
+            obj.getElementsByTagName('ul')[0].style.display = display;
+    }
+    function nothing(){}
+    function insertRss(id, h)
+    {
+        var obj = $("rss_body_" + id);
+        if (obj) obj.innerHTML = h;
+    }
+    function funcEdit(id)
+    {
+        $showModal('編輯', '/index/layout/func_edit.php?id=' + id + '&themeID=1&noOrder=1', 750, 350, onReload);
+    }
+    function divInit()
+    {
+        var cols = Math.floor($j("#divisionBox").width() / $j("#divisionBox .dir").width());
+        var count = $j("#divisionBox .dir").length;
+        for (var i=0; i<count; i++)
+        {
+            if (i%cols == (cols-1))
+                $j("#divisionBox .dir:eq(" + i + ")").after("<div class=clear></div>");
+        }
+    }
+    function statisticInit()
+    {
+        var cols = Math.floor($j("#statisticBox").width() / $j("#statisticBox .chart").width());
+        var count = $j("#statisticBox .chart").length;
+        for (var i=0; i<count; i++)
+        {
+            if (i%cols == (cols-1))
+                $j("#statisticBox .chart:eq(" + i + ")").after("<div class=clear></div>");
+        }
+    }
+</script>
+<style>
+    .ui-dialog-title{
+      font-size: 17px;
+    }
+
+    .color-dialog{
+      width:100px;
+    }
+
+    #toolbar {
+      top: 0px;
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+    }
+
+    .container{
+      margin-top:100px;
+      margin-left: 50px;
+    }
+
+    #save{
+      margin-left: 50px;
+    }
+
+    #angle{
+      width: 35px;
+    }
+
+    #base{
+      margin-top:50px;
+    }
+
+    #menu{
+        overflow: visible;
+    }
+
+    #main{
+        overflow: visible;
+    }
+  </style>
+<style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_reset > div{overflow:hidden}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+/* @noflip */
+.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+/* @noflip */
+.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+/* @noflip */
+.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+/* @noflip */
+.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;left:-10000px;overflow:visible;position:absolute;top:-10000px;width:100%
+}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0 0, 0 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0 0, 0 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fb_edge_widget_with_comment{position:relative;*z-index:1000}
+.fb_edge_widget_with_comment span.fb_edge_comment_widget{position:absolute}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget{z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget .FB_Loader{left:0;top:1px;margin-top:6px;margin-left:0;background-position:50% 50%;background-color:#fff;height:150px;width:394px;border:1px #666 solid;border-bottom:2px solid #283e6c;z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.dark .FB_Loader{background-color:#000;border-bottom:2px solid #ccc}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.siderender
+.FB_Loader{margin-top:0}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+/* @noflip */
+.fbpluginrecommendationsbarleft{left:10px}
+/* @noflip */
+.fbpluginrecommendationsbarright{right:10px}</style></head>
+
+<body onload="init();" style="cursor: auto;">
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tab-index="-1" src="http://static.ak.facebook.com/connect/xd_arbiter.php?version=25#channel=f28a1ef938&amp;origin=http%3A%2F%2Fcsclab12.cs.nthu.edu.tw&amp;channel_path=%2F%3Ffb_xd_fragment%23xd_sig%3Df1e8077dbc%26" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tab-index="-1" src="https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=25#channel=f28a1ef938&amp;origin=http%3A%2F%2Fcsclab12.cs.nthu.edu.tw&amp;channel_path=%2F%3Ffb_xd_fragment%23xd_sig%3Df1e8077dbc%26" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+<script>
+        window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({
+                appId      : '179519402197498',                      // App ID from the app dashboard
+                channelUrl : '//csclab12.cs.nthu.edu.tw/',                                   // Channel file for x-domain comms
+                status     : true,                                   // Check Facebook Login status
+                xfbml      : true                                   // Look for social plugins on the page
+            });
+        console.log('finished loading facebook');
+        jQuery(document).trigger('FBSDKLoaded');
+    };
+		// Load the SDK asynchronously
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		
+		
+
+</script>
+
+<div id="toolbar" class="ui-widget-header ui-corner-all" style="display: none;">
+    <button id="save" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-state-hover" role="button" aria-disabled="false" title="Save"><span class="ui-button-icon-primary ui-icon ui-icon-disk"></span><span class="ui-button-text">Save</span></button>
+    <button id="create" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Say Something!</span></button>
+    <button id="resizify" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Resize!</span></button>
+    <span id="radio" class="ui-buttonset">
+      <input type="radio" id="radio1" name="radio" class="ui-helper-hidden-accessible"><label for="radio1" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left" role="button" aria-disabled="false" aria-pressed="false"><span class="ui-button-text">Drag&amp;Drop</span></label>
+      <input type="radio" id="radio2" name="radio" class="ui-helper-hidden-accessible"><label for="radio2" class="ui-button ui-widget ui-state-default ui-button-text-only ui-state-active" role="button" aria-disabled="false" aria-pressed="true"><span class="ui-button-text">Change Color</span></label>
+      <input type="radio" id="radio3" name="radio" class="ui-helper-hidden-accessible"><label for="radio3" class="ui-button ui-widget ui-state-default ui-button-text-only" role="button" aria-disabled="false" aria-pressed="false"><span class="ui-button-text">Delete</span></label>
+      <input type="radio" id="radio4" name="radio" class="ui-helper-hidden-accessible"><label for="radio4" class="ui-button ui-widget ui-state-default ui-button-text-only" role="button" aria-disabled="false" aria-pressed="false"><span class="ui-button-text">Font Resizer</span></label>
+      <input type="radio" id="radio5" name="radio" class="ui-helper-hidden-accessible"><label for="radio5" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" role="button" aria-disabled="false" aria-pressed="false"><span class="ui-button-text">Image Rotater</span></label>
+    </span>
+    <input type="text" id="status" value="None">
+    <span id="AAA" style="display: none;">
+      <button class="jfontsize-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="jfontsize-m" role="button" aria-disabled="false"><span class="ui-button-text">A-</span></button>
+      <button class="jfontsize-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="jfontsize-d" role="button" aria-disabled="false"><span class="ui-button-text">A</span></button>
+      <button class="jfontsize-button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="jfontsize-p" role="button" aria-disabled="false"><span class="ui-button-text">A+</span></button>
+    </span>
+    <span id="color-group" style="display: inline;">
+      <button id="color-txt" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Text Color</span></button>
+      <button id="color-bg" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Background Color</span></button>
+    </span>
+</div> <!--end toolbar-->
+<div id="base">
+<div id="base2">
+<div id="base3">
+    <div id="sysbar">
+	<div id="sysbar2">
+	<div id="sysbar3">
+		    <div id="login" class="dragme colorme hideme fontme rotateme ui-draggable" onclick="Change(this);" style="position: relative;">
+        <script type="text/javascript">var gRedirectHome = true;</script><script type="text/javascript">
+    var res = {
+        account:  '帳號',
+        password: '密碼',
+        remember: '記住我的登入資訊',
+        passwd_forgot: '忘記密碼',
+        ok:       '確定',
+        login:    '登入',
+        help:     '登入說明'
+    };
+
+    function openDialog(title, url, w, h) { $showModal(title, url, w, h, onOpenDialogLoad); }
+    function onOpenDialogLoad() { $reload(); }
+</script>
+<script type="text/javascript" src="/static/ilms/js/login.js"></script>
+<a href="/course/index.php" id="_lms">LMS</a><img src="/static/ilms/icon/line.gif" style="padding: 0 5px;"><a href="/board/index.php" id="_cm">知識社群</a><img src="/static/ilms/icon/line.gif" style="padding: 0 5px;"><a href='javascript:login("", "", "")'>登入</a>    </div>
+    <div id="search" class="dragme colorme hideme fontme rotateme ui-draggable" onclick="Change(this);" style="position: relative;">
+中文<img src="/static/ilms/icon/line.gif" style="padding: 0 8px;"><a href='javascript:m_changeLang("en-us")'>English</a><img src="/static/ilms/icon/line.gif" style="padding: 0 8px;"><a href="http://lms.nthu.edu.tw/course/74" target="_blank">Q&amp;A</a><img src="/static/ilms/icon/line.gif" style="padding: 0 8px;">線上人數: <span id="counter">558</span>&nbsp;<input id="txtSearch" onkeypress="$searchEnter(event)" type="text" style="height:15px; font-size:12px; width:80px;"><img style="cursor:pointer" onclick="$searchSubmit()" src="/static/ilms/icon/find.png" align="absmiddle">    </div>
+    <div class="clear"></div>
+
+<script>
+    var gSessActiveLife = 300;
+    setTimeout("updateCount()", gSessActiveLife * 1000);
+
+    function updateCount()
+    {
+        var lim = gSessActiveLife;
+        var obj = $syncload("/http_get_count.php", {limit:lim});
+        if (obj && obj.ret && obj.ret.count)
+            $("counter").innerHTML = obj.ret.count;
+        setTimeout("updateCount()", lim * 1000);
+    }
+
+    function $searchEnter(e)
+    {
+        var evt = (window.event) ? event : e;
+        var key = (evt.charCode) ? evt.charCode : evt.keyCode;
+        if (key == 13) $searchSubmit();
+    }
+    function $searchSubmit()
+    {
+        var k = encodeURIComponent($V("txtSearch"));
+        if (k == "") return;
+window.open('/search.php?scope=1&area=251&page=1&fmKeyword=' + k);    }
+
+    function m_changeLang(newLang)
+    {
+        $setCookie("ck_locale", newLang, 365);
+        $load("/sys/lib/ajax/change_lang.php",{locale:newLang}, m_onChangeLang);
+    }
+    function m_onChangeLang(obj) { window.location.reload(); }
+
+    var dom = new Object();
+    dom.CToolMenu = function(id, _callback)
+    {
+        this.el = $E("DIV");
+        this.el.id = id;
+        this.el.className = "toolMenu";
+
+        this.callback = _callback;
+        $append(this.el);
+    }
+    dom.CToolMenu.prototype = {
+        m_append: function(_caption, id, _arg)
+        {
+            var _item = $E("DIV");
+            if (_caption == "-")
+            {
+                _item.className = "toolMenuSeparator";
+                this.el.appendChild(_item);
+                return;
+            }
+            _item.id = this.el.id + "." + id;
+            _item.arg = _arg;
+            _item.ref = this;
+            _item.innerHTML = _caption;
+            _item.onclick = this.m_click;
+            _item.onmouseover = this.m_over;
+            _item.onmouseout = this.m_out;
+            this.el.appendChild(_item);
+        },
+
+        m_show: function(x, y) { $show(this.el, x, y); },
+        $hide: function() { $hide(this.el); $remove(this.el); },
+
+        m_click: function()
+        {
+            var n = this.id.substr(this.id.indexOf(".") + 1);
+            this.ref.callback.call(this, n, this.arg);
+            this.ref.$hide();
+        },
+        m_over: function() { this.className = "toolMenuItemOver"; },
+        m_out: function()  { this.className = "toolMenuItemOut";  }
+    }
+
+    function m_mgrHomeMenu()
+    {
+        if ($mnu) { $mnu.$hide(); $mnu=null; return; }
+        $mnu = new dom.CToolMenu("idxMgr", m_onIdxMgrMenuClick);
+
+        var _arg = {};
+        $mnu.m_append("首頁設定", "profile", _arg);
+        $mnu.m_append("選單管理", "menu", _arg);
+        $mnu.m_append("版面配置", "layout", _arg);
+        $mnu.m_append("套用版面樣式", "theme", _arg);
+        $mnu.m_append("編輯樣式", "css", _arg);
+
+        var a = $area($("idxMgr"));
+        $mnu.m_show(a.left, a.top + a.height);
+    }
+
+    function m_onIdxMgrMenuClick(id, _arg)
+    {
+        $mnu = null;
+        switch (id)
+        {
+            case "profile":     m_mgrIdxProfile(); break;
+            case "menu":        m_mgrIdxMenus(); break;
+            case "layout":      m_mgrIdxLayout(); break;
+            case "theme":       m_mgrIdxTheme(); break;
+            case "css":         m_mgrIdxCss(); break;
+        }
+    }
+    function m_mgrIdxProfile()      { $showModal("首頁設定", "/index/profile_edit.php?id=1", 750, 480, onCloseModal); }
+    function m_mgrIdxMenus()        { $showModal("選單管理", "/index/menu/menu.php?id=1", 720, 450, onReload); }
+       function m_mgrIdxLayout()       { window.location.href = "/index/layout/layout.php?id=1"}
+    function m_mgrIdxTheme()        { $showModal("套用版面樣式", "/index/theme.php?id=1", 800, 500, onCloseModal); }
+    function m_mgrIdxCss()          { $showModal("編輯樣式",   "/index/theme_edit.php?id=1", 800, 550, onCloseModal); }
+</script>    </div>
+	</div>
+	</div>
+    <div id="mainBody">
+	<div id="mainBody2">
+	<div id="mainBody3">
+		<div id="banner">
+		<div id="banner2">
+		<div id="banner3">
+                <div><a href="/course/index.php"><img class="dragme hideme rotateme resizeme ui-draggable" id="logo" src="/static/ilms/icon/logo.jpg" style="margin: 0px; resize: none; position: relative; zoom: 1; display: block; height: 52px; width: 286px; top: auto; left: auto;"></a></div>
+            <div style="clear:both"></div>
+                 </div>
+		</div>
+		</div>
+        <div id="content">
+		<div id="content2">
+		<div id="content3">
+            <div id="menu">
+			<div id="menu2">
+			<div id="menu3">
+				
+				<div id="mbox1">
+					<div id="textArea_153" class="box textArea dragme colorme hideme fontme rotateme ui-draggable" onclick="Change(this);" style="position: relative;">
+                <div class="box2">
+                <div class="box3">
+                    
+                    <div class="boxBody"><div><a href="javascript:login('','','')"><img border="0" src="http://lms.nthu.edu.tw/blog/webhd_read_file.php?id=2956&amp;verifyCode=b0373a6c4287f291907febeb83424a29"></a>&nbsp;</div></div>
+                    <div class="boxFooter"></div>
+                </div>
+                </div>
+                </div><div id="textArea_92" class="box textArea dragme colorme hideme fontme rotateme ui-draggable" onclick="Change(this);" style="position: relative;">
+                <div class="box2">
+                <div class="box3">
+                    <div class="boxHeader">申請社群 </div>
+                    <div class="boxBody"><div>歡迎使用 iLMS 數位學習平台，本系統除了有完整的課程功能外，更整合了社群功能(目前提供班版、社團、實驗室、計畫等申請)，可滿足學生 / 老師 / 社團等資訊入口的需求。</div>
+<div>請按 <a href="javascript:openDialog('申請社群', '/home/board_apply.php', 700, 400)"><span style="COLOR: #4444ff; FONT-WEIGHT: bold">這裡</span></a>&nbsp;提出申請，約需&nbsp;1 個工作天審核。</div>
+<div>&nbsp;</div>
+<div>&gt;&gt;<a href="http://sites.powercam.cc/site/demo" target="_blank">社群的簡單介紹及使用手冊</a></div>
+<div>&nbsp;</div>
+<div>&nbsp;</div></div>
+                    <div class="boxFooter"></div>
+                </div>
+                </div>
+                </div><div id="textArea_91" class="box textArea dragme colorme hideme fontme rotateme ui-draggable" onclick="Change(this);" style="position: relative;">
+                <div class="box2">
+                <div class="box3">
+                    <div class="boxHeader">登入系統說明 </div>
+                    <div class="boxBody">
+<style>
+<!--
+.active {
+ border: 1px solid #7D7D7D;
+ border-bottom: none;
+
+
+background:#ff7;
+padding-left:2px;
+ color:#000;
+ cursor:pointer;
+}
+.inactive {
+ border: none;
+padding-left:2px;
+ color:#777;
+ border-bottom: 1px solid #7D7D7D;
+ cursor:pointer;
+}
+.layer {
+ border: 1px solid #7D7D7D;
+
+
+background:#ff7;
+
+ border-top: none;
+ padding:2px;
+}
+-->
+</style>
+
+<script language="JavaScript">
+//<![CDATA[
+var currentLayer = "cell1";
+ var currentDiv = "d1";
+ function showLayer(obj,div){
+  if(currentLayer!=obj.id) {
+   showIt(currentLayer,currentDiv,false);
+   currentLayer = obj.id;
+   currentDiv = div;
+   showIt(currentLayer,currentDiv,true);
+  }
+ }
+ function showIt(o,d,mode){
+  var obj = document.getElementById(o);
+  var div = document.getElementById(d);
+  obj.className = mode?"active":"inactive";
+  div.style.display = mode?"block":"none";
+ }
+//]]>
+</script>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+<tr align="center">
+<td id="cell1" class="active" onclick="showLayer(this,'d1');" width="25%"><b>本校學生</b></td>
+<td id="cell2" class="inactive" onclick="showLayer(this,'d2');" width="25%"><b>外校學生</b></td>
+<td id="cell3" class="inactive" onclick="showLayer(this,'d3');" width="25%"><b>教師</b></td>
+<td class="inactive">&nbsp;</td>
+<td style="BORDER-BOTTOM: #7d7d7d 1px solid"></td></tr>
+<tr width="80%">
+<td colspan="4">
+<div style="DISPLAY: block" id="d1" class="layer">(1)一般生：帳號為學號<span style="COLOR: #0000e0"><strong>不含</strong></span>英文字母 (ex.<span style="COLOR: #ff0000"><strong>101000001</strong></span>)&nbsp;&nbsp;&nbsp;<br>For General Students,username is your Student ID<span style="COLOR: #0000e0"><strong> without</strong></span> the first english letter. (ex.<span style="COLOR: #ff0000"><strong>101000001</strong></span>)<br>(2)交換生：帳號為學號<span style="COLOR: #0000e0"><strong>含</strong></span>英文字母 (ex.<span style="COLOR: #ff0000"><strong>x1010001</strong></span>)<br>For Exchange Students,username is your Student ID. (ex.<span style="COLOR: #ff0000"><strong>x1010001</strong></span>)<br><br><strong>[預設密碼]<br></strong>(1) 一般生為身分證字號末<span style="COLOR: #0000e0"><strong>四碼</strong></span>+出生日期<span style="COLOR: #0000e0"><strong>四碼</strong></span>(<span style="COLOR: #ff0000"><strong>月月日日</strong></span>)，ex. 身分證字號為A12345<span style="COLOR: #0000e0">6789 </span>出生日期為68<span style="COLOR: #0000e0">0101</span>，則預設密碼為<span style="COLOR: #0000e0"><strong>67890101</strong></span><br>(2) 大陸交換生為個人身分證號碼<span style="COLOR: #0000e0"><strong>末四碼</strong></span>+出生日期<span style="COLOR: #0000e0"><strong>四碼</strong></span><br>(3) For Foreign Students,default password will be<span style="COLOR: #0000e0"><strong> the last four digits of your Passport number and your birthday(MMDD). </strong></span>Ex: Your Passport number is 123456789, and your birthday is1990/01/01, then default password should be 67890101.</div>
+<div style="DISPLAY: none" id="d2" class="layer">帳號為<span style="COLOR: #ff0000"><strong>身分證字號</strong></span>&nbsp;&nbsp;&nbsp;<br>預設密碼為<span style="COLOR: #ff0000"><strong>身份證末四碼</strong></span> </div>
+<div style="DISPLAY: none" id="d3" class="layer">帳號為<span style="COLOR: #ff0000"><strong>人事編號</strong></span> (ex.<span style="COLOR: #ff0000"><strong>B99999</strong></span>)&nbsp;&nbsp;&nbsp;<br><br>[預設密碼]<br>(1) 一般教師為身分證字號末<span style="COLOR: #0000e0"><strong>四碼</strong></span>+出生日期<span style="COLOR: #0000e0"><strong>四碼</strong></span>(<span style="COLOR: #ff0000"><strong>月月日日</strong></span>)，ex. 身分證字號為A12345<span style="COLOR: #0000e0">6789 </span>出生日期為68<span style="COLOR: #0000e0">0101</span>，則預設密碼為<span style="COLOR: #0000e0"><strong>67890101</strong></span><br>(2) 非本國教師請輸入<span style="COLOR: #0000e0"><strong>生日八碼</strong></span> </div></td></tr></tbody></table><br>若您對登入方式有任何疑問或是發現無法登入<br>請寫信至<a href="mailto:elearn@cc.nthu.edu.tw" ?mailto:elearn@cc.nthu.edu.tw\??="">elearn@cc.nthu.edu.tw</a>或電洽<strong>31237廖倪佑</strong></div>
+                    <div class="boxFooter"></div>
+                </div>
+                </div>
+                </div>
+				</div>
+								<div id="mbox2">
+					<!-- CACHE DATA --><div class="box courseOpen dragme colorme hideme fontme rotateme ui-draggable" id="courseOpen_1" onclick="Change(this);" style="position: relative;">
+                <div class="box2">
+                <div class="box3">
+                    <div class="boxHeader">開放課程</div>
+                    <div class="boxBody">
+                        <div class="boxItem"><a href="/course/13270" title="ＪＡＶＡ語言JAVA Programming Language">ＪＡＶＡ語言JAVA Programming Language</a> <span class="hint">(572)</span></div><div class="boxItem"><a href="/course/7085" title="計算機程式設計Introduction to Programming">計算機程式設計Introduction to Programming</a> <span class="hint">(570)</span></div><div class="boxItem"><a href="/course/3997" title="作業系統Operating Systems">作業系統Operating Systems</a> <span class="hint">(545)</span></div><div class="boxItem"><a href="/course/4001" title="嵌入式系統概論Intorduction to Embedded Systems">嵌入式系統概論Intorduction to Embedded Systems</a> <span class="hint">(529)</span></div><div class="boxItem"><a href="/course/9120" title="作業系統Operating Systems">作業系統Operating Systems</a> <span class="hint">(482)</span></div><div class="boxItem"><a href="/course/6234" title="台灣的日本殖民經驗與認同The Colonial Taiwan and its Identity">台灣的日本殖民經驗與認同The Colonial Taiwan and its Identity</a> <span class="hint">(482)</span></div><div class="boxItem"><a href="/course/13300" title="平行程式Parallel Programming">平行程式Parallel Programming</a> <span class="hint">(436)</span></div><div class="boxItem"><a href="/course/11351" title="雲端程式設計Cloud Programming">雲端程式設計Cloud Programming</a> <span class="hint">(424)</span></div>
+                    </div>
+                    <div class="boxFooter"><div class="more" onclick="window.location.href=&quot;/course/index.php?nav=course&amp;t=open&quot;">
+                                            <a href="/course/index.php?nav=course&amp;t=open">...更多</a>
+                                        </div></div>
+                </div>
+                </div>
+            </div>
+				</div>
+				            </div>
+			</div>
+			</div>
+            <div id="main">
+			<div id="main2">
+			<div id="main3">
+				
+				<div id="xbox1">
+					<div class="box bulletinNews dragme colorme hideme fontme rotateme ui-draggable" id="bulletinNews_4" onclick="Change(this);" style="position: relative;">
+                <div class="box2">
+                <div class="box3">
+                    <div class="boxHeader">最新公告 </div>
+                    <div class="boxBody">
+                        
+            <div class="tableBox">
+                <table class="table">
+                    <tbody><tr class="header"><td class="td" width="55px" align="center">編號</td><td class="td" align="center">標題</td><td class="td" width="55px" align="center">人氣</td><td class="td" width="80px" align="center">時間</td></tr><tr class="row2" onmouseover="this.className=&quot;rowOver&quot;" onmouseout="this.className=&quot;row2&quot;"><td class="td" valign="top" width="55px" align="center">363758</td><td class="td" valign="top" align="left"><div class="hidden" title="0522網站更新維護作業已經順利完成，iLMS系統恢復正常運作"><a href="/index.php?nav=news_show&amp;newsID=363758">0522網站更新維護作業已經順利完成，iLMS系統恢復正常運作</a>  </div></td><td class="td" valign="top" width="55px" align="center">76</td><td class="td" valign="top" width="80px" align="center"><div class="hidden">05-22 08:11</div></td></tr><tr class="row" onmouseover="this.className=&quot;rowOver&quot;" onmouseout="this.className=&quot;row&quot;"><td class="td" valign="top" width="55px" align="center">313219</td><td class="td" valign="top" align="left"><div class="hidden" title="101學年第2學期的課程資料已完成匯入"><a href="/index.php?nav=news_show&amp;newsID=313219">101學年第2學期的課程資料已完成匯入</a>  </div></td><td class="td" valign="top" width="55px" align="center">356</td><td class="td" valign="top" width="80px" align="center"><div class="hidden">01-31 11:00</div></td></tr><tr class="row2" onmouseover="this.className=&quot;rowOver&quot;" onmouseout="this.className=&quot;row2&quot;"><td class="td" valign="top" width="55px" align="center">264548</td><td class="td" valign="top" align="left"><div class="hidden" title="提醒您！請務必將您的密碼設定為安全性較高的密碼"><a href="/index.php?nav=news_show&amp;newsID=264548">提醒您！請務必將您的密碼設定為安全性較高的密碼</a>  </div></td><td class="td" valign="top" width="55px" align="center">474</td><td class="td" valign="top" width="80px" align="center"><div class="hidden">11-05 15:52</div></td></tr><tr class="row" onmouseover="this.className=&quot;rowOver&quot;" onmouseout="this.className=&quot;row&quot;"><td class="td" valign="top" width="55px" align="center">258174</td><td class="td" valign="top" align="left"><div class="hidden" title="9/21應用課程錄影出爐囉！錯過當天精采課程的話，趕快來點選觀看唷"><a href="/index.php?nav=news_show&amp;newsID=258174">9/21應用課程錄影出爐囉！錯過當天精采課程的話，趕快來點選觀看唷</a>  </div></td><td class="td" valign="top" width="55px" align="center">427</td><td class="td" valign="top" width="80px" align="center"><div class="hidden">10-26 09:39</div></td></tr><tr class="row2" onmouseover="this.className=&quot;rowOver&quot;" onmouseout="this.className=&quot;row2&quot;"><td class="td" valign="top" width="55px" align="center">231640</td><td class="td" valign="top" align="left"><div class="hidden" title="Having problem signing in?"><a href="/index.php?nav=news_show&amp;newsID=231640">Having problem signing in?</a>  </div></td><td class="td" valign="top" width="55px" align="center">379</td><td class="td" valign="top" width="80px" align="center"><div class="hidden">09-21 17:44</div></td></tr><tr class="row" onmouseover="this.className=&quot;rowOver&quot;" onmouseout="this.className=&quot;row&quot;"><td class="td" valign="top" width="55px" align="center">229097</td><td class="td" valign="top" align="left"><div class="hidden" title="【重要提醒】申請助教的同學請注意！"><a href="/index.php?nav=news_show&amp;newsID=229097">【重要提醒】申請助教的同學請注意！</a>  </div></td><td class="td" valign="top" width="55px" align="center">1114</td><td class="td" valign="top" width="80px" align="center"><div class="hidden">09-14 15:46</div></td></tr>
+                    </tbody></table>
+                </div>
+                    </div>
+                    <div class="boxFooter"><div class="more" onclick="window.location.href=&quot;/course/index.php?nav=bulletin&amp;folderID=1&quot;"><a href="/course/index.php?nav=bulletin&amp;folderID=1">...更多</a></div></div>
+                </div>
+                </div>
+                </div>
+               <div class="box favorite dragme colorme hideme fontme rotateme ui-draggable" id="favorite_130" onclick="Change(this);" style="background-color: rgb(255, 78, 189); position: relative; font-size: 14px;">
+                <div class="box2">
+                <div class="box3">
+                    <div class="boxHeader">常用連結 </div>
+                    <div class="boxBody">
+                    <div class="boxItem odd"><a href="http://www.nthu.edu.tw/" target="_blank">國立清華大學首頁</a></div><div class="boxItem even"><a href="http://www.lib.nthu.edu.tw/" target="_blank">圖書館</a></div><div class="boxItem odd"><a href="http://www.cc.nthu.edu.tw/" target="_self">計算機與通訊中心</a></div><div class="boxItem even"><a href="https://www.ccxp.nthu.edu.tw/ccxp/INQUIRE/" target="_blank">校務資訊系統</a></div><div class="boxItem odd"><a href="http://ocw.nthu.edu.tw/" target="_blank">開放式課程OpenCourseWare(NTHU, OCW)</a></div><div class="boxItem even"><a href="http://infonet.et.nthu.edu.tw/" target="_blank">清華公佈欄</a></div><div class="boxItem odd"><a href="http://www.media.nthu.edu.tw/" target="_blank">清華影音網</a></div><div class="boxItem even"><a href="http://net.nthu.edu.tw/2009/netip" target="_blank">網路智慧財產權</a></div><div class="boxItem odd"><a href="http://www.nthu.edu.tw/infopub/ip.php" target="_self">智慧財產權宣導網站</a></div>
+                    </div>
+                    <div class="boxFooter"></div>
+                </div>
+                </div>
+                </div>
+				</div>
+							</div>
+			</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+		</div>
+		</div>
+    </div>
+	</div>
+	</div>
+	<div id="copyright">
+	<div id="copyright2">
+	<div id="copyright3" class="dragme colorme hideme fontme rotateme ui-draggable" onclick="Change(this);" style="position: relative;">
+		<div style="text-align: center; position: relative;" class="dragme colorme hideme fontme rotateme ui-draggable" onclick="Change(this);">Copyright©2010-2013 National Tsing Hua University All rights reserved. </div>
+<div style="text-align: center; position: relative;" class="dragme colorme hideme fontme rotateme ui-draggable" onclick="Change(this);"><span style="color: rgb(0, 0, 0);">本網站僅作學術研究用途，不得從事商業用途，請<span style="color: rgb(204, 0, 51);">尊重智慧財產權</span>，避免任何侵權行為，勿上傳/下載未經授權之檔案資料。</span></div>
+<div style="text-align: center; position: relative;" class="dragme colorme hideme fontme rotateme ui-draggable" onclick="Change(this);"><span style="color: rgb(0, 0, 0);">Please respect the intellectual property rights.</span></div>    
+	</div>
+	</div>
+	</div>	
+</div>
+</div>
+</div>
+ 
+
+  
+
+  
+
+  
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="/static/js/jQueryRotate.2.2.js"></script>
+<script>
+    
+    obj = "empty";
+    reset = 0;
+    resizeflag = 1;
+    dragmeflag = 0;
+    angle = 0;
+
+
+    $(function() {
+
+      setDialog();
+
+      $("#AAA").hide();
+      $("#color-group").hide();
+      $( "button" ).button();
+
+      $( "#save" ).button({
+        text: false,
+        label: 'Save',
+        icons: {
+            primary: "ui-icon-disk"
+        }
+      });
+
+      $('#create').click(function() {
+        //alert( $(" #status ").val("YOYO") );
+        $("#status").val("Enter Word");
+        $( "#dialog-word" ).dialog( "open" );
+      });
+
+    
+      $( "#radio" ).buttonset();
+    
+      $('input[name=radio]').change(function(){
+
+        if (this.id == "radio1"){
+          dragmeflag = 1;
+          if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").hide();
+          $(".dragme" ).draggable( { cursor:"move"} );
+          $("#status").val("Drag you want");
+
+        }else if (this.id == "radio2"){
+          // if (dragmeflag = 1){
+          //     $(".dragme").draggable( "destroy" );
+          //     dragmeflag = 1;
+          // }
+          if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").show();
+          $(".colorme" ).attr('onclick', 'Change(this);');
+
+          if (obj!="empty"){
+            $( "#status" ).val( "Selected" );
+          } else{
+            $( "#status" ).val( "Select an object" );
+          } 
+
+        }else if (this.id == "radio3"){
+          if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").hide();
+          $(".hideme" ).attr('onclick', 'Delete(this);');
+
+          $("#status").val("Click to delete");
+
+        }else if (this.id == "radio4"){
+          if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").show();
+          $("#color-group").hide();
+          $(".fontme" ).attr('onclick', 'Font(this);');
+
+          if (obj!="empty"){
+            $( "#status" ).val( "Selected" );
+          } else{
+            $( "#status" ).val( "Select an object" );
+          } 
+
+        }else if (this.id == "radio5"){
+          if (resizeflag==1){
+            $(".resizeme").resizable( "destroy" );
+            resizeflag = 0;
+          }
+
+          $(".hideme" ).removeAttr('onclick');
+          $(".colorme" ).removeAttr('onclick');
+          $(".fontme" ).removeAttr('onclick');
+          $(".rotateme").removeAttr('onclick');
+          $("#AAA").hide();
+          $("#color-group").hide();
+          $(".rotateme" ).attr('onclick', 'Rotate(this);');
+          
+          if (obj!="empty"){
+            $( "#status" ).val( "Selected" );
+            $( "#dialog-angle" ).dialog( "open" );
+
+          }else{
+            $( "#status" ).val( "Select an object" );
+          } 
+        }
+        
+      });  //end of radio .change
+
+      $(".resizeme").resizable({
+       });
+    });  //end of function() 
+
+
+    function Font(item){
+      alert(item);
+      //alert( parseInt($(item).css('font-size')) );
+      reset = parseInt($(item).css('font-size'));
+      now = reset;  
+      obj = item;
+    };
+
+    $('#jfontsize-m').click(function() {
+      if (obj!="empty" && reset==0){
+        reset = parseInt($(obj).css('font-size'));
+        now = reset;
+      }
+      if (reset != 0 ){
+        now = now-1;
+        $(obj).css('font-size', now);
+      }else {
+        alert("Please select a segment first!");
+      }
+    });
+
+    $('#jfontsize-d').click(function() {
+      if (obj!="empty" && reset==0){
+        reset = parseInt($(obj).css('font-size'));
+        now = reset;
+      }
+      if (reset != 0 ){
+        now=reset;
+        $(obj).css('font-size', now);
+      }else {
+        alert("Please select a segment first!");
+      }
+    });
+
+    $('#jfontsize-p').click(function() {
+      if (obj!="empty" && reset==0){
+        reset = parseInt($(obj).css('font-size'));
+        now = reset;
+      }
+      if (reset != 0 ){
+        now = now+1;
+        $(obj).css('font-size', now);
+      }else {
+        alert("Please select a segment first!");
+      }
+    });
+
+    function Delete(item){
+      //$(item).hide();
+      //$(item).removeAttr('src');
+      $(item).remove();
+    };
+
+    function Change(item){
+      //$( "#dialog-color" ).dialog( "open" );
+      //alert(obj);
+      obj = item;
+      reset = 0;
+      alert(obj);
+    };
+
+    $('#color-txt').click(function() {
+      if (obj!="empty"){
+        $("#status").val("Change text color");
+        $( "#dialog-color-txt" ).dialog( "open" );
+      } else{
+        alert("Please select a segment first!");
+      } 
+    });
+
+    $('#color-bg').click(function() {
+      if (obj!="empty"){
+        $("#status").val("Change bg color");
+        $( "#dialog-color-bg" ).dialog( "open" );
+      } else{
+        alert("Please select a segment first!");
+      } 
+    });
+
+    function Rotate(item){
+      obj = item;
+      reset = 0;
+      alert(obj);
+      //$(obj).rotate( {angle: 30} );
+      $("#status").val("Rotating");
+      $( "#dialog-angle" ).dialog( "open" );
+    }
+
+    function rgb2hex(rgbString){
+      //alert(rgbString);
+      var parts = rgbString.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+      // parts now should be ["rgb(0, 70, 255", "0", "70", "255"]
+      delete (parts[0]);
+      for (var i = 1; i <= 3; ++i) {
+        parts[i] = parseInt(parts[i]).toString(16);
+        if (parts[i].length == 1) parts[i] = '0' + parts[i];
+      } 
+      var hexString ='#'+parts.join('').toUpperCase(); // "#0070FF"
+      return hexString
+    };
+
+    function setDialog(){
+      //var quest = $( "#quest" );
+      $( "#dialog-color-txt" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+          duration: 1500
+        },
+        hide: {
+          effect: "explode",
+          duration: 500
+        },
+        buttons: {
+          "OK": function() {
+            //var chosen_color = document.getElementById('background-color').value;
+            var chosen_color_txt = $('#text-color').val();
+            $(obj).css('color', chosen_color_txt);
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          }
+        },
+        close: function() {
+            $("#status").val("Selected");
+          //quest.val( "" ).removeClass( "ui-state-error" );
+        }
+      });
+
+      $( "#dialog-color-bg" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+          duration: 1500
+        },
+        hide: {
+          effect: "explode",
+          duration: 500
+        },
+        buttons: {
+          "OK": function() {
+            var chosen_color_bg = $('#background-color').val();
+            $(obj).css('background-color', chosen_color_bg);
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          }
+        },
+        close: function() {
+            $("#status").val("Selected");
+          //quest.val( "" ).removeClass( "ui-state-error" );
+        }
+      });
+
+      $( "#dialog-word" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+          duration: 1500
+        },
+        hide: {
+          effect: "explode",
+          duration: 500
+        },
+        buttons: {
+          "OK": function() {
+            $("body").append('<div class="fontme dragme colorme hideme rotateme" style="display:inline-block;">'+$('#word').val()+'</div>'); 
+            $( this ).dialog( "close" );
+            $("#status").val("None");
+            //alert( $('#word').val() );
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            $("#status").val("None");
+          }
+        },
+        close: function() {
+          $("#status").val("None");
+        }
+      });
+
+      $( "#dialog-angle" ).dialog({
+        autoOpen: false,
+        height: 250,
+        width: 350,
+        modal: true,
+        show: {
+          effect: "fade",
+          duration: 1500
+        },
+        hide: {
+          effect: "explode",
+          duration: 500
+        },
+        buttons: {
+          "OK": function() {
+            //alert(value);
+            //alert($("#angle").val());
+            //alert(obj);
+            $(obj).rotate( {angle: parseInt($("#angle").val())} );
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+            //alert( $('#word').val() );
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            $("#status").val("Selected");
+          }
+        },
+        close: function() {
+          $("#status").val("Selected");
+        }
+      });
+
+    };  // end of setDialog();
+    
+    $('#resizify').click(function(){
+        resizeflag = 1;
+        $(".resizeme").resizable({
+            /*handles:"all",            //定义可变化大小的方向,可选值"n, e, s, w, ne, se, sw, nw","all"代表全部
+            //helper:"proxy",
+            aspectRatio: true,        //是否同步向x,y变化大小，也就是按照原有的比例缩放 默认是false
+           autoHide: true,          //是否自动隐藏变化控制器
+            transparent: false,
+            grid: [10, 10],            //定义x,y轴两个方向的变化步进,单位px
+            animate: true,           //定义延迟是否变化大小
+            animateDuration: "slow", //变化速度
+           animateEasing: "swing",
+           ghost: true,             //是否显示变化影子,利用此属性可以较为精确定位 (估计这比较难理解，尝试改变属性值就清楚了)
+           start:function(e,ui){$(this).append("Start!");},  //定义开始变化大小时执行的函数
+           resize:function(e,ui){},                          //定义在变化大小时执行的函数
+           stop:function(e,ui){$(this).append("Stop!");}    //与start相反
+           //draggable() 是使一个对象具有拖动的功能?*/
+       });
+    });
+    $('.container').css('width', $('#toolbar').width() - 100 );
+    //alert($(window).height())
+    $('.container').css('height', $(window).height() - 25);
+
+    $(window).resize(function() {
+      $('.container').css('width', $('#toolbar').width() - 100 );
+      $('.container').css('height', $(window).height() - 25);
+    });
+</script>
+
+''<script src="/static/js/canvas2image.js"></script><script src="/static/js/html2canvas.js"></script><div class="highslide-container" style="padding: 0px; border: none; margin: 0px; position: absolute; left: 0px; top: 0px; width: 100%; z-index: 1001; direction: ltr;"><a class="highslide-loading" title="Click to cancel" href="javascript:;" style="position: absolute; top: -9999px; opacity: 0.75; z-index: 1;">Loading...</a><div id="modal"></div><div style="display: none;"></div><table cellspacing="0" style="padding: 0px; border: none; margin: 0px; visibility: hidden; position: absolute; border-collapse: collapse; width: 0px;"><tbody style="padding: 0px; border: none; margin: 0px;"><tr style="padding: 0px; border: none; margin: 0px; height: auto;"><td style="padding: 0px; border: none; margin: 0px; line-height: 0; font-size: 0px; background-image: url(http://lms.nthu.edu.tw/sys/res/icon/graphics/outlines/rounded-white.png); height: 20px; width: 20px; background-position: 0px 0px; background-repeat: initial initial;"></td><td style="padding: 0px; border: none; margin: 0px; line-height: 0; font-size: 0px; background-image: url(http://lms.nthu.edu.tw/sys/res/icon/graphics/outlines/rounded-white.png); height: 20px; width: 20px; background-position: 0px -40px; background-repeat: initial initial;"></td><td style="padding: 0px; border: none; margin: 0px; line-height: 0; font-size: 0px; background-image: url(http://lms.nthu.edu.tw/sys/res/icon/graphics/outlines/rounded-white.png); height: 20px; width: 20px; background-position: -20px 0px; background-repeat: initial initial;"></td></tr><tr style="padding: 0px; border: none; margin: 0px; height: auto;"><td style="padding: 0px; border: none; margin: 0px; line-height: 0; font-size: 0px; background-image: url(http://lms.nthu.edu.tw/sys/res/icon/graphics/outlines/rounded-white.png); height: 20px; width: 20px; background-position: 0px -80px; background-repeat: initial initial;"></td><td class="rounded-white highslide-outline" style="padding: 0px; border: none; margin: 0px; position: relative;"></td><td style="padding: 0px; border: none; margin: 0px; line-height: 0; font-size: 0px; background-image: url(http://lms.nthu.edu.tw/sys/res/icon/graphics/outlines/rounded-white.png); height: 20px; width: 20px; background-position: -20px -80px; background-repeat: initial initial;"></td></tr><tr style="padding: 0px; border: none; margin: 0px; height: auto;"><td style="padding: 0px; border: none; margin: 0px; line-height: 0; font-size: 0px; background-image: url(http://lms.nthu.edu.tw/sys/res/icon/graphics/outlines/rounded-white.png); height: 20px; width: 20px; background-position: 0px -20px; background-repeat: initial initial;"></td><td style="padding: 0px; border: none; margin: 0px; line-height: 0; font-size: 0px; background-image: url(http://lms.nthu.edu.tw/sys/res/icon/graphics/outlines/rounded-white.png); height: 20px; width: 20px; background-position: 0px -60px; background-repeat: initial initial;"></td><td style="padding: 0px; border: none; margin: 0px; line-height: 0; font-size: 0px; background-image: url(http://lms.nthu.edu.tw/sys/res/icon/graphics/outlines/rounded-white.png); height: 20px; width: 20px; background-position: -20px -20px; background-repeat: initial initial;"></td></tr></tbody></table></div><div class="fontme dragme colorme hideme rotateme ui-draggable" style="display: inline-block; position: relative; left: 1130px; top: -1253px; font-size: 28px; color: rgb(131, 255, 133);" onclick="Change(this);">AAA</div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable" tabindex="-1" role="dialog" aria-describedby="dialog-color-txt" aria-labelledby="ui-id-1" style="position: absolute; height: auto; width: 350px; top: 286px; left: 471px; display: none; visibility: visible;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-1" class="ui-dialog-title">Color Picker</span><button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">close</span></button></div><div id="dialog-color-txt" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: 131px;">
+    <p class="validateTips" style="font-size:15px;">Choose a Color</p>
+    <form>
+      <div>
+        <label class="span2" for="text-color">for text : </label>
+        <input id="text-color" class="color-dialog span1" type="color" value="#000000">
+      </div>
+    </form>
+  </div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">OK</span></button><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Cancel</span></button></div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable" tabindex="-1" role="dialog" aria-describedby="dialog-color-bg" aria-labelledby="ui-id-2" style="position: absolute; height: auto; width: 350px; top: 272px; left: 471px; display: none; visibility: visible;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-2" class="ui-dialog-title">Color Picker</span><button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">close</span></button></div><div id="dialog-color-bg" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: 131px;">
+    <p class="validateTips" style="font-size:15px;">Choose a Color</p>
+    <form>
+      <div>
+        <label class="span2" for="background-color">for background : </label>
+        <input id="background-color" class="color-dialog span1" type="color" value="#FFFFFF">
+      </div>
+    </form>
+  </div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">OK</span></button><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Cancel</span></button></div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable" tabindex="-1" role="dialog" aria-describedby="dialog-word" aria-labelledby="ui-id-3" style="position: absolute; height: auto; width: 350px; top: 272px; left: 471px; display: none; visibility: visible;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-3" class="ui-dialog-title">Word Creater</span><button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">close</span></button></div><div id="dialog-word" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: 131px;">
+    <p class="validateTips" style="font-size:15px;">What do you wanna say:</p>
+    <input type="text" id="word">
+  </div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">OK</span></button><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Cancel</span></button></div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable" tabindex="-1" role="dialog" aria-describedby="dialog-angle" aria-labelledby="ui-id-4" style="display: none; position: absolute;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-4" class="ui-dialog-title">Image Rotater</span><button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" aria-disabled="false" title="close"><span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">close</span></button></div><div id="dialog-angle" class="ui-dialog-content ui-widget-content" style="">
+    <p class="validateTips" style="font-size:15px;">What angle you want it to display:</p>
+    <input type="text" id="angle">degree
+  </div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">OK</span></button><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Cancel</span></button></div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div></body></html>

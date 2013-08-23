@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>Comment Page</title>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+ 		<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/cupertino/jquery-ui.css" />
+		<style>
+			.like-icon{
+				position: relative;
+				float: right;
+				width: 25px;
+				height: 25px;
+			}
+
+			.like-count{
+				position: relative;
+				float: right;
+				color: #24248F;
+			}
+
+			#Title{
+				color: #24248F;
+				text-align: center;
+			}
+
+			#Delete{
+				float: right;
+				margin-top: 25px;
+				font-size: 20px;
+			}
+
+			#Home{
+				text-align: right;
+			}
+
+			#Logout{
+				text-align: right;
+				float: right;
+			}
+			
+		</style>
+		<script>
+
+			// set the jquery ui accordion
+			var icons = {
+  				header: "ui-icon-circle-arrow-e",
+  				activeHeader: "ui-icon-circle-arrow-s"
+			};
+			$(function() {
+				$( "#accordion" ).accordion({
+					collapsible: true,
+					icons: icons,
+					heightStyle: "content"
+				});
+			});
+
+
+			function Delete(){
+				{% if postid %}
+
+					// delete the posted id
+					var id = '{{postid}}';
+					FB.api(id, 'delete', function(response) {
+						if (!response || response.error) {
+							alert('Error occured');
+						} else {
+							alert('Post was deleted');
+							window.location.assign("http://localhost:5000/home")
+						}
+					});
+
+				{% else %}
+					alert("DID NOT GET!!");
+				{% endif %}
+			};
+
+			function goHome(){
+				$( "#confirm-home" ).dialog( "open" );
+			};
+
+			function fbLogout() {
+        		$( "#confirm-logout" ).dialog( "open" );
+        	}
+
+        	// set the confirm dialog
+			$(function() {
+    			$( "#confirm-home" ).dialog({
+      				resizable: false,
+      				modal: true,
+      				width: 500,
+      				autoOpen: false,
+      				show: {
+				    	effect: "bounce",
+				    	duration: 1000
+				    },
+				    hide: {
+				    	effect: "explode",
+				    	duration: 500
+				    },
+      				buttons: {
+        				"YES": function() {
+        					window.location.assign("http://localhost:5000/home")
+        				},
+        				Cancel: function() {
+          					$( this ).dialog( "close" );
+        				}
+      				}
+    			});
+
+    			$( "#confirm-logout" ).dialog({
+      				resizable: false,
+      				modal: true,
+      				width: 500,
+      				autoOpen: false,
+      				show: {
+				    	effect: "bounce",
+				    	duration: 1000
+				    },
+				    hide: {
+				    	effect: "explode",
+				    	duration: 500
+				    },
+      				buttons: {
+        				YES: function() {
+        					FB.logout(function (response) {
+        						alert("GOODBYE~~");
+            					//Do what ever you want here when logged out like reloading the page
+            					window.location.assign("http://localhost:5000");
+        					});
+        				},
+        				Cancel: function() {
+          					$( this ).dialog( "close" );
+        				}
+      				}
+    			});
+  			});
+
+		</script>
+	</head>
+	<body>
+		<div id="fb-root"></div>
+		<script>
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/all.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+			
+			window.fbAsyncInit = function() {
+				// init the FB JS SDK
+				FB.init({
+					appId      : '179519402197498',                      
+					channelUrl : '', 									
+					status     : true,                                 
+					xfbml      : true,                                 
+					cookie	   : true
+				});
+			
+				// Additional initialization code such as adding Event Listeners goes here
+
+				//check the login status
+				FB.getLoginStatus(function(response) {
+					if (response.status === 'connected') {
+
+						var uid = response.authResponse.userID;
+						var accessToken = response.authResponse.accessToken;
+
+						{% if postid %}
+							var id = '{{postid}}';
+							//var id = '100001535559485_511413145586533';
+
+							// get the info of posted question
+							FB.api(id, function(response) { 
+
+								console.log(response);
+
+								// output the parts of info
+								$("#Title").html("<h1>Q: <a href='"+response.actions[0].link+"'>"+response.message+"</a></h1>");
+								
+// hear is a question!!!
+								$('#Info').html( $('#Info').html()+"<li class='info'>1.&nbsp發佈時間："+response.created_time+"</li>");
+								$('#Info').html( $('#Info').html()+"<li class='info'>2.&nbsp來自："+response.application.name+"</li>")
+								
+								if(response.likes){
+									$('#Info').html( $('#Info').html()+"<li class='info'>3.&nbsp讚："+response.likes.count+"個人說這讚</li>")
+								}else{
+									$('#Info').html( $('#Info').html()+"<li class='info'>3.&nbsp讚：哭哭歐 沒有人說這讚&nbsp>.^</li>")
+								}
+
+								
+								console.log(response.comments);
+								if (response.comments){
+									$.each(response.comments.data, function(i, comment){
+
+										if(comment.like_count){	
+											if (comment.like_count != 0){
+												$('#Com').html( $('#Com').html()+ "<div class='like-count'>x"+comment.like_count+"</div><img class='like-icon' src='https://dl.dropboxusercontent.com/u/65282618/facebook-like-icon.png'>");
+											}
+										}
+										$('#Com').html( $('#Com').html()+"<li class='com'><a href='https://facebook.com/"+comment.from.id+"'><img src='https://graph.facebook.com/"+comment.from.id+"/picture'></a>&nbsp"+comment.from.name+"："+comment.message+"</li>");
+
+										$('#Com').html( $('#Com').html()+ '<hr size="1" noshade style="border:1px dashed #cccccc;">');
+
+										
+									});
+								}else {
+									$('#Com').html( $('#Com').html()+ '<div>So sad</div><div>乙則都沒有唷</div>');
+								}
+									
+							});
+						{% else %}
+							<h1>Did not get the Posted Info!</h1>
+						{% endif %}
+						
+					} else if (response.status === 'not_authorized') {
+						alert('not_authorized');
+						window.location.assign("http://localhost:5000");
+
+					} else {
+						alert('plz login in first');
+						window.location.assign("http://localhost:5000");
+					}
+				});
+
+			};
+
+			
+		</script>
+
+		
+		<input type='button' id='Delete' onClick='Delete();' value='Delete This Question'>
+
+		<div id="Title"></div>
+		<div id='Logout'><input type='button' onClick='fbLogout();' value='Logout'></div>
+		<div id='Home'><input type='button' onClick='goHome();' value='Go Home'></div>
+
+		<div id="accordion">
+			<h3 class="head">Information</h3>
+				<ol id="Info"></ol>
+			<h3 class="head">Comments</h3>
+				<ol id="Com"></ol>
+		</div>
+
+		<div id="confirm-home" title="WARNING">
+  			<p>
+  			<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>You'll lose the track of the response of this question. Are you sure?</p>
+		</div>
+
+		<div id="confirm-logout" title="WARNING">
+  			<p>
+  			<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>You'll lose the track of the response of this question. Are you sure?</p>
+		</div>
+		
+	</body>
+</html>
