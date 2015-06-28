@@ -3,7 +3,7 @@ from github.InputGitTreeElement import InputGitTreeElement
 
 class GithubHelper:
 	def __init__:
-		g = Github('crazyplum24@gmail.com', '1235813gg')
+		g = Github('帳號鳩咪', '不要放這裡啊')
 		repos = g.get_user().get_repos()
 		self.repo = filter(lambda x: x.name == 'design_crowd', repos)[0]
 		
